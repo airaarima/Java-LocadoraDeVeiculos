@@ -3,9 +3,19 @@ package org.locadora.Models;
 import org.locadora.Interfaces.ILista;
 
 public abstract class Lista<T> implements ILista<T> {
-    private No<T> inicio;
-    private No<T> fim;
-    private int tamanho = 0;
+    protected No<T> inicio;
+    protected No<T> fim;
+    protected int tamanho = 0;
+
+    public No<T> getInicio() {
+        return inicio;
+    }
+    public No<T> getFim() {
+        return fim;
+    }
+    public int getTamanho() {
+        return tamanho;
+    }
 
     @Override
     public void insereInicio(T elemento) {
@@ -82,7 +92,7 @@ public abstract class Lista<T> implements ILista<T> {
             builder.append(atual.getElemento().toString()).append("\n");
         }
 
-        return "Alunos:\n" + builder.toString();
+        return builder.toString();
     }
 
     public  String toStringReverso(){
