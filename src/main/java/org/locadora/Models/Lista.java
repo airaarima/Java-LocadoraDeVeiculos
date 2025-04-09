@@ -2,7 +2,7 @@ package org.locadora.Models;
 
 import org.locadora.Interfaces.ILista;
 
-public class Lista<T> implements ILista<T> {
+public abstract class Lista<T> implements ILista<T> {
     private No<T> inicio;
     private No<T> fim;
     private int tamanho = 0;
@@ -101,11 +101,11 @@ public class Lista<T> implements ILista<T> {
         return builder.toString();
     }
 
-    private No<T> busca(T elemento) {
-        No<T> elementoRemover = this.inicio;
-        while (elementoRemover != null && !elementoRemover.getElemento().equals(elemento) ) { // Enquanto 'elementoRemover' não for nulo ou igual ao elemento que se deseja remover
-            elementoRemover = elementoRemover.getProximo();
+    public No<T> busca(T elemento) {
+        No<T> encontrarElemento = this.inicio;
+        while (encontrarElemento != null && !encontrarElemento.getElemento().equals(elemento) ) { // Enquanto 'encontrarElemento' não for nulo ou igual ao elemento que se deseja remover
+            encontrarElemento = encontrarElemento.getProximo();
         }
-        return elementoRemover;
+        return encontrarElemento;
     }
 }
