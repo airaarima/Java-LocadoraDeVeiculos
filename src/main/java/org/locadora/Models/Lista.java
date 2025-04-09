@@ -103,7 +103,7 @@ public abstract class Lista<T> implements ILista<T> {
 
     public No<T> busca(T elemento) {
         No<T> encontrarElemento = this.inicio;
-        while (encontrarElemento != null && !encontrarElemento.getElemento().equals(elemento) ) { // Enquanto 'encontrarElemento' não for nulo ou igual ao elemento que se deseja remover
+        while (encontrarElemento != null && !encontrarElemento.getElemento().equals(elemento) ) {
             encontrarElemento = encontrarElemento.getProximo();
         }
         return encontrarElemento;
