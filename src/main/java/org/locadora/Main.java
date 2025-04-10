@@ -1,13 +1,11 @@
 package org.locadora;
 
-/**
- * Hello world!
- *
- */
-public class Main
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import org.locadora.Models.Clientes;
+import org.locadora.Models.ListaClientes;
+
+public class Main {
+
+    public static void main(String[] args) {
+
     }
-}
+    }
