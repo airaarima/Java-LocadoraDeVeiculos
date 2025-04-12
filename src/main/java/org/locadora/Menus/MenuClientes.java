@@ -46,20 +46,26 @@ public class MenuClientes {
         } while (opcao != 0);
     }
     public void cadastrarCliente() {
+        String cpf;
         System.out.println("\n--- CADASTRAR CLIENTE ---");
 
         System.out.print("CPF: ");
-        String cpf = scanner.nextLine().trim();
+        cpf = scanner.nextLine().trim();
+
         if (cpf.isEmpty()) {
             System.out.println("Erro: CPF não pode ser vazio!");
             return;
         }
-        // Verifica se CPF já existe
-        if (listaClientes.buscarPorCpf(cpf) != null) {
-            System.out.println("Erro: CPF já cadastrado!");
+
+        if (!listaClientes.cpfValido(cpf)) {
+            System.out.println("Erro: CPF no formato inválido!");
             return;
         }
+        if (listaClientes.existeCpf(cpf)) {
+            System.out.println("Erro: Esse CPF já existe no sistema!");
+        }
 
+        // NOME
         System.out.print("Nome: ");
         String nome = scanner.nextLine().trim();
         if (nome.isEmpty()) {
