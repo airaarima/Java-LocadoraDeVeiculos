@@ -1,15 +1,6 @@
 package org.locadora.Models;
 
 public class ListaClientes extends Lista<Clientes>{
-    No<Clientes> obtemCpf;
-
-    public boolean cpfValido(String cpf){
-        return cpf != null && cpf.matches("\\d{3}\\.\\d{3}\\d{3}-\\d{2}");
-    }
-
-    public boolean existeCpf(String cpf){
-        return buscarPorCpf(cpf) != null;
-    }
 
     public No<Clientes> buscarPorCpf(String cpf){
         No<Clientes> encontrarElemento = getInicio();
@@ -23,7 +14,7 @@ public class ListaClientes extends Lista<Clientes>{
     }
 
     public void adicionarCliente(Clientes cliente) {
-        super.insereInicio(cliente);
+        super.insereFim(cliente);
     }
 
     public boolean editarClientes(String cpf, Clientes clienteAtualizado){

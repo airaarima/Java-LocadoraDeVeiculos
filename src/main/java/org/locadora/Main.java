@@ -4,6 +4,7 @@ import org.locadora.Menus.MenuCategoria;
 import org.locadora.Menus.MenuClientes;
 import org.locadora.Models.CategoriaLista;
 import org.locadora.Models.ListaClientes;
+import org.locadora.Validadores.Validacoes;
 
 import java.util.Scanner;
 
@@ -18,7 +19,9 @@ public class Main {
 
     private static ListaClientes clientes = new ListaClientes();
 
-    private static MenuClientes menuClientes = new MenuClientes(clientes);
+    private static Validacoes valid = new Validacoes(clientes);
+
+    private static MenuClientes menuClientes = new MenuClientes(clientes, valid);
 
     public static void main(String[] args) {
         // Realiza a leitura dos arquivos CSV
@@ -27,11 +30,11 @@ public class Main {
         int opcao;
         do {
             System.out.println("\n===== LOCADORA DE VEÍCULOS =====");
-            System.out.println("1. Gerenciar Clientes");
-            System.out.println("2. Gerenciar Veículos");
-            System.out.println("3. Gerenciar Categorias");
-            System.out.println("4. Gerenciar Locações");
-            System.out.println("0. Sair");
+            System.out.println("[1] Gerenciar Clientes");
+            System.out.println("[2] Gerenciar Veículos");
+            System.out.println("[3] Gerenciar Categorias");
+            System.out.println("[4] Gerenciar Locações");
+            System.out.println("[0] Sair");
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
