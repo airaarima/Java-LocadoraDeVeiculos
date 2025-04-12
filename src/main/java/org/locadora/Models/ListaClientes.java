@@ -1,20 +1,41 @@
 package org.locadora.Models;
 
 public class ListaClientes extends Lista<Clientes>{
-    private No<Clientes> inicio;
     No<Clientes> obtemCpf;
 
-    public Clientes buscarPorCpf(String cpf){
+
+    public No<Clientes> adicionarCliente(){
+        return null;
+    }
+    public No<Clientes> buscarPorCpf(String cpf){
+        No<Clientes> encontrarElemento = getInicio();
+        while (encontrarElemento != null){
+            if(encontrarElemento.getElemento().getCpf().equals(cpf)){
+                return encontrarElemento;
+            }
+            encontrarElemento = encontrarElemento.getProximo();
+        }
         return null;
     }
 
     public boolean editarClientes(String cpf, Clientes clienteAtualizado){
-        return false;
+        No<Clientes> editarElemento = buscarPorCpf(cpf);
+        if (editarElemento == null){
+            return false;
+        }else
+            editarElemento.setElemento(clienteAtualizado);
+        return true;
     }
 
     public boolean removerPorCpf(String cpf){
-        return false;
+        No<Clientes> excluirElemento = buscarPorCpf(cpf);
+            if (excluirElemento == null){
+             return false;
+            }
+            Clientes clienteExcluido = excluirElemento.getElemento();
+            return super.remove(clienteExcluido);
     }
+
     public void listarClientesDoInicio() {
         No<Clientes> atual = inicio;
         while (atual != null) {

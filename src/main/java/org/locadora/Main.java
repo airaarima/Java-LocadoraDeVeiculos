@@ -1,7 +1,9 @@
 package org.locadora;
 
 import org.locadora.Menus.MenuCategoria;
+import org.locadora.Menus.MenuClientes;
 import org.locadora.Models.CategoriaLista;
+import org.locadora.Models.ListaClientes;
 
 import java.util.Scanner;
 
@@ -13,6 +15,10 @@ public class Main {
 
     // Cria os menus de cada classe e realiza injeção de dependências
     private static MenuCategoria menuCategoria = new MenuCategoria(categorias);
+
+    private static ListaClientes clientes = new ListaClientes();
+
+    private static MenuClientes menuClientes = new MenuClientes(clientes);
 
     public static void main(String[] args) {
         // Realiza a leitura dos arquivos CSV
@@ -33,7 +39,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-//                    menuClientes();
+                    menuClientes.exibir();
                     break;
                 case 2:
 //                    menuVeiculos();

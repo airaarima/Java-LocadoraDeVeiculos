@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/org/locadora/Interfaces/ILista.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Menus/MenuCategoria.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/Categoria.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/CategoriaLista.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/Clientes.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/Lista.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/ListaClientes.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Models/No.java;C:/Users/ismae/Java-LocadoraDeVeiculos/src/main/java/org/locadora/Main.java;C:/Users/ismae/Java-LocadoraDeVeiculos/README.md" />
+  </component>
+</project>
