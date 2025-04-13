@@ -61,7 +61,7 @@ public class MenuClientes {
     // LÓGICA PARA CADASTRAR UM NOVO CLIENTE
     public void cadastrarCliente() {
         String cpf, nome, cnh, telefone;
-        boolean  cpfValido = false, cnhValida = false, nomeValido = false, telefoneValido = false;
+        boolean cpfValido = false, cnhValida = false, nomeValido = false, telefoneValido = false;
 
 
         // --- CPF
@@ -73,7 +73,7 @@ public class MenuClientes {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
-            if (cpf.isEmpty() || !valid.cpfValido(cpf)) {
+            if (!valid.cpfValido(cpf)) {
                 System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos! (Ex: 123.456.789-01)");
                 continue;
             }
@@ -91,12 +91,12 @@ public class MenuClientes {
             System.out.print("Nome: ");
             nome = scanner.nextLine().trim();
 
-            if(nome.equals("0")){
+            if (nome.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (nome.isEmpty() || !valid.validaNome(nome)) {
+            if (!valid.validaNome(nome)) {
                 System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida')");
                 continue;
             }
@@ -108,12 +108,12 @@ public class MenuClientes {
         do {
             System.out.print("CNH: ");
             cnh = scanner.nextLine().trim();
-            if(cnh.equals("0")){
+            if (cnh.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (cnh.isEmpty() || !valid.validaCnh(cnh)) {
+            if (!valid.validaCnh(cnh)) {
                 System.out.println("CNH INVÁLIDO! Digite um CNH com até 11 números");
                 continue;
             }
@@ -122,18 +122,17 @@ public class MenuClientes {
         } while (!cnhValida);
 
 
-
         // --- TELEFONE
         do {
             System.out.print("Telefone: ");
             telefone = scanner.nextLine().trim();
 
-            if(telefone.equals("0")){
+            if (telefone.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (telefone.isEmpty()||!valid.validaTelefone(telefone)) {
+            if (!valid.validaTelefone(telefone)) {
                 System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '(55)123456789')");
                 continue;
             }
@@ -145,7 +144,6 @@ public class MenuClientes {
         listaClientes.adicionarCliente(novoCliente);
         System.out.println("Cliente cadastrado com sucesso!");
     }
-
 
 
     // LÓGICA PARA EXCLUIR UM CLIENTE
@@ -162,12 +160,12 @@ public class MenuClientes {
             System.out.print("Digite o novo nome ou 0 para cancelar: ");
             novoNome = scanner.nextLine().trim();
 
-            if(novoNome.equals("0")){
+            if (novoNome.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (novoNome.isEmpty() || !valid.validaNome(novoNome)) {
+            if (!valid.validaNome(novoNome)) {
                 System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida')");
                 continue;
             }
@@ -176,11 +174,10 @@ public class MenuClientes {
         } while (!nome_valido);
         cliente.setNome(novoNome);
 
-        if(listaClientes.editarClientes(cliente.getCpf(), cliente)){
+        if (listaClientes.editarClientes(cliente.getCpf(), cliente)) {
             System.out.println("Nome atualizado para " + novoNome);
         }
     }
-
 
 
     // EDITAR POR CPF
@@ -192,12 +189,12 @@ public class MenuClientes {
             System.out.print("Digite o novo CPF (xxx.xxx.xxx-xx) ou 0 para cancelar: ");
             novoCpf = scanner.nextLine().trim();
 
-            if(novoCpf.equals("0")){
+            if (novoCpf.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (novoCpf.isEmpty() || !valid.cpfValido(novoCpf)) {
+            if (!valid.cpfValido(novoCpf)) {
                 System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos!");
                 continue;
             }
@@ -211,11 +208,10 @@ public class MenuClientes {
         } while (!cpfValido);
         cliente.setCpf(novoCpf);
 
-        if(listaClientes.editarClientes(cpfAntigo, cliente)) {
+        if (listaClientes.editarClientes(cpfAntigo, cliente)) {
             System.out.println("CPF alterado para " + novoCpf);
         }
     }
-
 
 
     // EDITAR POR CNH
@@ -232,7 +228,7 @@ public class MenuClientes {
                 return;
             }
 
-            if (novoCnh.isEmpty() || !valid.validaCnh(novoCnh)) {
+            if (!valid.validaCnh(novoCnh)) {
                 System.out.println("CNH INVÁLIDO! Digite um cnh com 11 dígitos");
                 continue;
             }
@@ -255,12 +251,12 @@ public class MenuClientes {
             System.out.print("Digite o novo número de telefone (somente números) ou 0 para cancelar: ");
             novoTelefone = scanner.nextLine().trim();
 
-            if(novoTelefone.equals("0")){
+            if (novoTelefone.equals("0")) {
                 System.out.println("Cancelando edição...");
                 return;
             }
 
-            if (novoTelefone.isEmpty() || !valid.validaTelefone(novoTelefone)) {
+            if (!valid.validaTelefone(novoTelefone)) {
                 System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '99134567891')");
                 continue;
             }
@@ -270,7 +266,7 @@ public class MenuClientes {
 
         cliente.setTelefone(novoTelefone);
 
-        if(listaClientes.editarClientes(cliente.getCpf(), cliente)){
+        if (listaClientes.editarClientes(cliente.getCpf(), cliente)) {
             System.out.println("Número de telefone alterado para " + novoTelefone);
         }
     }

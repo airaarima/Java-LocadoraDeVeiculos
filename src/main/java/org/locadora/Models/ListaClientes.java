@@ -1,11 +1,11 @@
 package org.locadora.Models;
 
-public class ListaClientes extends Lista<Clientes>{
+public class ListaClientes extends Lista<Clientes> {
 
-    public No<Clientes> buscarPorCpf(String cpf){
+    public No<Clientes> buscarPorCpf(String cpf) {
         No<Clientes> encontrarElemento = getInicio();
-        while (encontrarElemento != null){
-            if(encontrarElemento.getElemento().getCpf().equals(cpf)){
+        while (encontrarElemento != null) {
+            if (encontrarElemento.getElemento().getCpf().equals(cpf)) {
                 return encontrarElemento;
             }
             encontrarElemento = encontrarElemento.getProximo();
@@ -17,32 +17,32 @@ public class ListaClientes extends Lista<Clientes>{
         super.insereFim(cliente);
     }
 
-    public boolean editarClientes(String cpf, Clientes clienteAtualizado){
+    public boolean editarClientes(String cpf, Clientes clienteAtualizado) {
         No<Clientes> editarElemento = buscarPorCpf(cpf);
-        if (editarElemento == null){
+        if (editarElemento == null) {
             return false;
-        }else
-            editarElemento.setElemento(clienteAtualizado);
+        }
+        editarElemento.setElemento(clienteAtualizado);
         return true;
     }
 
-    public boolean removerPorCpf(String cpf){
+    public boolean removerPorCpf(String cpf) {
         No<Clientes> excluirElemento = buscarPorCpf(cpf);
-            if (excluirElemento == null){
-             return false;
-            }
-            Clientes clienteExcluido = excluirElemento.getElemento();
-            return super.remove(clienteExcluido);
+        if (excluirElemento == null) {
+            return false;
+        }
+        Clientes clienteExcluido = excluirElemento.getElemento();
+        return super.remove(clienteExcluido);
     }
 
     public String listarClientesDoInicio() {
         return super.toStringReverso();
 
-        }
+    }
 
 
     public String listarClientesDoFim() {
         return super.toString();
-        }
     }
+}
 
