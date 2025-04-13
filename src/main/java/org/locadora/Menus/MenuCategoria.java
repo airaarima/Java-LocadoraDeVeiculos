@@ -18,11 +18,11 @@ public class MenuCategoria {
         int opcao;
         do {
             System.out.println("\n===== MENU CATEGORIAS =====");
-            System.out.println("1. Incluir Categoria");
-            System.out.println("2. Excluir Categoria");
-            System.out.println("3. Editar Categoria");
-            System.out.println("4. Listar Categorias");
-            System.out.println("0. Voltar");
+            System.out.println("[1] Incluir Categoria");
+            System.out.println("[2] Excluir Categoria");
+            System.out.println("[3] Editar Categoria");
+            System.out.println("[4] Listar Categorias");
+            System.out.println("[0] Voltar");
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();

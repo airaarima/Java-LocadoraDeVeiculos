@@ -35,19 +35,14 @@ public class ListaClientes extends Lista<Clientes>{
             return super.remove(clienteExcluido);
     }
 
-    public void listarClientesDoInicio() {
-        No<Clientes> atual = inicio;
-        while (atual != null) {
-            System.out.println(atual.getElemento().toString());
-            atual = atual.getProximo();
+    public String listarClientesDoInicio() {
+        return super.toStringReverso();
+
+        }
+
+
+    public String listarClientesDoFim() {
+        return super.toString();
         }
     }
 
-    public void listarClientesDoFim() {
-        No<Clientes> atual = fim;
-        while (atual != null) {
-            System.out.println(atual.getElemento().toString());
-            atual = atual.getAnterior();
-        }
-    }
-}

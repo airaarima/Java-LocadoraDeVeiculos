@@ -27,7 +27,7 @@ public class Main {
         // Realiza a leitura dos arquivos CSV
         carregarDadosCsv();
 
-        int opcao;
+        char opcao;
         do {
             System.out.println("\n===== LOCADORA DE VEÍCULOS =====");
             System.out.println("[1] Gerenciar Clientes");
@@ -37,29 +37,29 @@ public class Main {
             System.out.println("[0] Sair");
             System.out.print("Escolha uma opção: ");
 
-            opcao = scanner.nextInt();
+            opcao = scanner.next().charAt(0);
             scanner.nextLine();
 
             switch (opcao) {
-                case 1:
+                case '1':
                     menuClientes.exibir();
                     break;
-                case 2:
+                case '2':
 //                    menuVeiculos();
                     break;
-                case 3:
+                case '3':
                     menuCategoria.exibir();
                     break;
-                case 4:
+                case '4':
 //                    menuLocacoes();
                     break;
-                case 0:
+                case '0':
                     System.out.println("Saindo do sistema...");
                     break;
                 default:
                     System.out.println("Opção inválida!");
             }
-        } while (opcao != 0);
+        } while (opcao != '0');
     }
 
     private static void carregarDadosCsv() {

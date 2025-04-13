@@ -20,55 +20,61 @@ public class MenuClientes {
     }
 
     public void exibir() {
-        int opcao;
+        char opcao;
         do {
             System.out.println("\n===== MENU CLIENTES =====");
             System.out.println("[1] Cadastrar Cliente");
             System.out.println("[2] Excluir Cliente");
             System.out.println("[3] Editar Cliente");
-            System.out.println("[4] Listar Clientes");
+            System.out.println("[4] Listar Clientes Pelo Inicio ");
+            System.out.println("[5] Listar Clientes Pelo Final");
             System.out.println("[0] Voltar");
             System.out.print("Escolha uma opção: ");
 
-            opcao = scanner.nextInt();
+            opcao = scanner.next().charAt(0);
             scanner.nextLine();
 
             switch (opcao) {
-                case 1:
+                case '1':
                     cadastrarCliente();
                     break;
-                case 2:
+                case '2':
                     excluirCliente();
                     break;
-                case 3:
+                case '3':
                     editarCliente();
                     break;
-                case 4:
-                    System.out.println(listaClientes.toString());
+                case '4':
+                    System.out.println(listaClientes.listarClientesDoFim());
                     break;
+                case '5':
+                    System.out.println(listaClientes.listarClientesDoInicio());
+                    break;
+                case '0':
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
             }
-        } while (opcao != 0);
+        } while (opcao != '0');
     }
 
     // LÓGICA PARA CADASTRAR UM NOVO CLIENTE
     public void cadastrarCliente() {
-        String cpf;
-        boolean cpf_valido = false;
+        String cpf, nome, cnh, telefone;
+        boolean  cpfValido = false, cnhValida = false, nomeValido = false, telefoneValido = false;
+
+
+        // --- CPF
         do {
             System.out.print("Digite o CPF do cliente (xxx.xxx.xxx-xx) ou 0 para cancelar a qualquer momento: ");
             cpf = scanner.nextLine().trim();
 
             if (cpf.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+                System.out.println("Voltando para o menu anterior...");
                 return;
             }
-            if (cpf.isEmpty()) {
-                System.out.println("CPF INVÁLIDO! O campo CPF deve ser preenchido!");
-                continue;
-            }
-
-            if (!valid.cpfValido(cpf)) {
-                System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos!");
+            if (cpf.isEmpty() || !valid.cpfValido(cpf)) {
+                System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos! (Ex: 123.456.789-01)");
                 continue;
             }
 
@@ -76,60 +82,62 @@ public class MenuClientes {
                 System.out.println("CPF INVÁLIDO! Esse CPF já existe no sistema!");
                 continue;
             }
-            cpf_valido = true;
-        } while (!cpf_valido);
+            cpfValido = true;
+        } while (!cpfValido);
 
-        String nome;
-        boolean nome_valido = false;
+
+        // --- NOME
         do {
             System.out.print("Nome: ");
             nome = scanner.nextLine().trim();
 
-            if (nome.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+            if(nome.equals("0")){
+                System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (nome.isEmpty()) {
-                System.out.println("NOME INVÁLIDO! O campo Nome não pode ser vazio!");
-                continue;
-            }
-
-            if (!valid.validaNome(nome)) {
+            if (nome.isEmpty() || !valid.validaNome(nome)) {
                 System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida')");
                 continue;
             }
-            nome_valido = true;
-        } while (!nome_valido);
+            nomeValido = true;
+        } while (!nomeValido);
 
 
-        System.out.print("CNH: ");
-        String cnh = scanner.nextLine().trim();
-        if (cnh.isEmpty()) {
-            System.out.println("CNH INVÁLIDO! CNH não pode ser vazia!");
-            return;
-        }
+        // --- CNH
+        do {
+            System.out.print("CNH: ");
+            cnh = scanner.nextLine().trim();
+            if(cnh.equals("0")){
+                System.out.println("Voltando para o menu anterior...");
+                return;
+            }
 
-        String telefone;
-        boolean telefoneValido = false;
+            if (cnh.isEmpty() || !valid.validaCnh(cnh)) {
+                System.out.println("CNH INVÁLIDO! Digite um CNH com até 11 números");
+                continue;
+            }
+
+            cnhValida = true;
+        } while (!cnhValida);
+
+
+
+        // --- TELEFONE
         do {
             System.out.print("Telefone: ");
             telefone = scanner.nextLine().trim();
 
-            if (telefone.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+            if(telefone.equals("0")){
+                System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (telefone.isEmpty()) {
-                System.out.println("NÚMERO INVÁLIDO! O campo Telefone não pode ser vazio!");
+            if (telefone.isEmpty()||!valid.validaTelefone(telefone)) {
+                System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '(55)123456789')");
                 continue;
             }
 
-            if (!valid.validaTelefone(telefone)) {
-                System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '99134567891')");
-                continue;
-            }
             telefoneValido = true;
         } while (!telefoneValido);
 
@@ -137,6 +145,8 @@ public class MenuClientes {
         listaClientes.adicionarCliente(novoCliente);
         System.out.println("Cliente cadastrado com sucesso!");
     }
+
+
 
     // LÓGICA PARA EXCLUIR UM CLIENTE
     public void excluirCliente() {
@@ -152,20 +162,16 @@ public class MenuClientes {
             System.out.print("Digite o novo nome ou 0 para cancelar: ");
             novoNome = scanner.nextLine().trim();
 
-            if (novoNome.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+            if(novoNome.equals("0")){
+                System.out.println("Voltando para o menu anterior...");
                 return;
             }
 
-            if (novoNome.isEmpty()) {
-                System.out.println("NOME INVÁLIDO! O campo nome deve ser preenchido!");
-                continue;
-            }
-
-            if (!valid.validaNome(novoNome)) {
+            if (novoNome.isEmpty() || !valid.validaNome(novoNome)) {
                 System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida')");
                 continue;
             }
+
             nome_valido = true;
         } while (!nome_valido);
         cliente.setNome(novoNome);
@@ -176,25 +182,22 @@ public class MenuClientes {
     }
 
 
+
     // EDITAR POR CPF
     public void editarCpf(Clientes cliente) {
         String cpfAntigo = cliente.getCpf();
         String novoCpf;
-        boolean cpf_valido = false;
+        boolean cpfValido = false;
         do {
-            System.out.print("Digite o novo CPF (xxx.xxx.xxx-xx) ou 0 para cancelar a qualquer momento: ");
+            System.out.print("Digite o novo CPF (xxx.xxx.xxx-xx) ou 0 para cancelar: ");
             novoCpf = scanner.nextLine().trim();
 
-            if (novoCpf.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+            if(novoCpf.equals("0")){
+                System.out.println("Voltando para o menu anterior...");
                 return;
             }
-            if (novoCpf.isEmpty()) {
-                System.out.println("CPF INVÁLIDO! O campo CPF deve ser preenchido!");
-                continue;
-            }
 
-            if (!valid.cpfValido(novoCpf)) {
+            if (novoCpf.isEmpty() || !valid.cpfValido(novoCpf)) {
                 System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos!");
                 continue;
             }
@@ -203,8 +206,9 @@ public class MenuClientes {
                 System.out.println("CPF INVÁLIDO! O CPF digitado já existe no sistema!");
                 continue;
             }
-            cpf_valido = true;
-        } while (!cpf_valido);
+
+            cpfValido = true;
+        } while (!cpfValido);
         cliente.setCpf(novoCpf);
 
         if(listaClientes.editarClientes(cpfAntigo, cliente)) {
@@ -213,9 +217,33 @@ public class MenuClientes {
     }
 
 
+
     // EDITAR POR CNH
     public void editarCnh(Clientes cliente) {
+        String novoCnh;
+        boolean cnhValida = false;
 
+        do {
+            System.out.println("Digite o novo CNH ou 0 para cancelar: ");
+            novoCnh = scanner.nextLine().trim();
+
+            if (novoCnh.equals("0")) {
+                System.out.println("Voltando para o menu anterior...");
+                return;
+            }
+
+            if (novoCnh.isEmpty() || !valid.validaCnh(novoCnh)) {
+                System.out.println("CNH INVÁLIDO! Digite um cnh com 11 dígitos");
+                continue;
+            }
+
+            cnhValida = true;
+        } while (!cnhValida);
+        cliente.setCnh(novoCnh);
+
+        if (listaClientes.editarClientes(cliente.getCpf(), cliente)) {
+            System.out.println("CNH alterado para " + novoCnh);
+        }
     }
 
 
@@ -227,20 +255,16 @@ public class MenuClientes {
             System.out.print("Digite o novo número de telefone (somente números) ou 0 para cancelar: ");
             novoTelefone = scanner.nextLine().trim();
 
-            if (novoTelefone.equals("0")) {
-                System.out.println("Cancelando cadastro...");
+            if(novoTelefone.equals("0")){
+                System.out.println("Cancelando edição...");
                 return;
             }
 
-            if (novoTelefone.isEmpty()) {
-                System.out.println("NÚMERO INVÁLIDO! O campo Telefone não pode ser vazio!");
-                continue;
-            }
-
-            if (!valid.validaTelefone(novoTelefone)) {
+            if (novoTelefone.isEmpty() || !valid.validaTelefone(novoTelefone)) {
                 System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '99134567891')");
                 continue;
             }
+
             telefoneValido = true;
         } while (!telefoneValido);
 
@@ -251,14 +275,19 @@ public class MenuClientes {
         }
     }
 
+
     // INTERFACE DE EDIÇÃO
     public void editarCliente() {
         String cpf;
         System.out.println("\n--- Editar Cliente ---");
 
         System.out.println("Digite o CPF que deseja editar: ");
+        cpf = scanner.nextLine().trim();
 
-            cpf = scanner.nextLine().trim();
+        if (cpf.equals("0")) {
+            System.out.println("Cancelando edição...");
+            return;
+        }
 
         No<Clientes> procuraCpf = listaClientes.buscarPorCpf(cpf);
         if (procuraCpf == null) {
@@ -275,7 +304,7 @@ public class MenuClientes {
                 clienteOriginal.getTelefone()
         );
 
-        int opcao;
+        char opcao;
         do {
             System.out.println("[1] Editar CPF");
             System.out.println("[2] Editar Nome");
@@ -284,23 +313,23 @@ public class MenuClientes {
             System.out.println("[0] Voltar");
             System.out.print("Escolha uma opção: ");
 
-            opcao = scanner.nextInt();
+            opcao = scanner.next().charAt(0);
             scanner.nextLine();
 
             switch (opcao) {
-                case 1:
+                case '1':
                     editarCpf(clienteEditado);
                     break;
-                case 2:
+                case '2':
                     editarNome(clienteEditado);
                     break;
-                case 3:
+                case '3':
                     editarCnh(clienteEditado);
                     break;
-                case 4:
+                case '4':
                     editarTelefone(clienteEditado);
                     break;
-                case 5:
+                case '5':
                     if (listaClientes.editarClientes(cpf, clienteEditado)) {
                         System.out.println("Alterações feitas com sucesso!");
                         return;
@@ -308,7 +337,11 @@ public class MenuClientes {
                         System.out.println("Erro ao salvar alterações!");
                     }
                     break;
+                case '0':
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
             }
-        } while (opcao != 0);
+        } while (opcao != '0');
     }
 }

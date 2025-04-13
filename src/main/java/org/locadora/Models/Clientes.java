@@ -46,7 +46,8 @@ public class Clientes {
 
     @Override
     public String toString() {
-        return "Nome: " + nome + "\nCPF: " + cpf + "\nCNH: " + cnh + "\nTelefone: " + telefone;
+        return String.format("Nome: %s, CPF: %s, CNH: %s, Telefone: %s", nome, cpf, cnh, telefone);
     }
+
 }
 
