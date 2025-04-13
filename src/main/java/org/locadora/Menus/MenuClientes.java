@@ -66,7 +66,7 @@ public class MenuClientes {
 
         // --- CPF
         do {
-            System.out.print("Digite o CPF do cliente (xxx.xxx.xxx-xx) ou 0 para cancelar a qualquer momento: ");
+            System.out.print("Digite o CPF do cliente (Ex: xxx.xxx.xxx-xx) ou 0 para cancelar a qualquer momento: ");
             cpf = scanner.nextLine().trim();
 
             if (cpf.equals("0")) {
@@ -88,7 +88,7 @@ public class MenuClientes {
 
         // --- NOME
         do {
-            System.out.print("Nome: ");
+            System.out.print("Digite o nome do cliente (Ex: 'João Almeida da Silva'): ");
             nome = scanner.nextLine().trim();
 
             if (nome.equals("0")) {
@@ -97,7 +97,7 @@ public class MenuClientes {
             }
 
             if (!valid.validaNome(nome)) {
-                System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida')");
+                System.out.println("NOME INVÁLIDO! Digite um nome válido (Ex: 'João Almeida da Silva')");
                 continue;
             }
             nomeValido = true;
@@ -106,7 +106,7 @@ public class MenuClientes {
 
         // --- CNH
         do {
-            System.out.print("CNH: ");
+            System.out.print("Digite a identificação do CNH (deve conter 11 dígitos exatos): ");
             cnh = scanner.nextLine().trim();
             if (cnh.equals("0")) {
                 System.out.println("Voltando para o menu anterior...");
@@ -124,7 +124,7 @@ public class MenuClientes {
 
         // --- TELEFONE
         do {
-            System.out.print("Telefone: ");
+            System.out.print("Digite o número do celular (Ex: (55)991234567): ");
             telefone = scanner.nextLine().trim();
 
             if (telefone.equals("0")) {
@@ -157,7 +157,7 @@ public class MenuClientes {
         String novoNome;
         boolean nome_valido = false;
         do {
-            System.out.print("Digite o novo nome ou 0 para cancelar: ");
+            System.out.print("Digite o novo nome (Ex: 'João Almeida da Silva')ou 0 para cancelar: ");
             novoNome = scanner.nextLine().trim();
 
             if (novoNome.equals("0")) {
@@ -220,7 +220,7 @@ public class MenuClientes {
         boolean cnhValida = false;
 
         do {
-            System.out.println("Digite o novo CNH ou 0 para cancelar: ");
+            System.out.println("Digite o novo número do CNH (deve conter 11 dígitos exatos) ou 0 para cancelar: ");
             novoCnh = scanner.nextLine().trim();
 
             if (novoCnh.equals("0")) {
@@ -229,7 +229,7 @@ public class MenuClientes {
             }
 
             if (!valid.validaCnh(novoCnh)) {
-                System.out.println("CNH INVÁLIDO! Digite um cnh com 11 dígitos");
+                System.out.println("CNH INVÁLIDO! A identificação do CNH deve ter 11 dígitos exatos!");
                 continue;
             }
 
@@ -248,7 +248,7 @@ public class MenuClientes {
         String novoTelefone;
         boolean telefoneValido = false;
         do {
-            System.out.print("Digite o novo número de telefone (somente números) ou 0 para cancelar: ");
+            System.out.print("Digite o novo número de telefone (Ex: (55)123456789) ou 0 para cancelar: ");
             novoTelefone = scanner.nextLine().trim();
 
             if (novoTelefone.equals("0")) {
@@ -257,7 +257,7 @@ public class MenuClientes {
             }
 
             if (!valid.validaTelefone(novoTelefone)) {
-                System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: '99134567891')");
+                System.out.println("NÚMERO INVÁLIDO! Digite um número de telefone válido (Ex: (55)123456789))");
                 continue;
             }
 

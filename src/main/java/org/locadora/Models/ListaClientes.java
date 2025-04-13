@@ -26,7 +26,7 @@ public class ListaClientes extends Lista<Clientes> {
         return true;
     }
 
-    public boolean removerPorCpf(String cpf) {
+    public boolean removerCliente(String cpf) {
         No<Clientes> excluirElemento = buscarPorCpf(cpf);
         if (excluirElemento == null) {
             return false;
