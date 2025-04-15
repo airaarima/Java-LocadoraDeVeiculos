@@ -37,17 +37,20 @@ public class ListaCliente extends Lista<Cliente> {
         return true;
     }
 
-    public boolean removerCliente(String cpf) {
+    public boolean removerCliente(String cpf, ListaLocacao listaLocacoes) {
         No<Cliente> excluirElemento = buscarPorCpf(cpf);
         if (excluirElemento == null) {
             return false;
         }
+        if(listaLocacoes.clientePossuiLocacaoAtiva(cpf)){
+            return false;
+        }
         Cliente clienteExcluido = excluirElemento.getElemento();
-        return super.remove(clienteExcluido);
+        return remove(clienteExcluido);
     }
 
     public String listarClientesDoInicio() {
-        return super.toStringReverso();
+        return toStringReverso();
 
     }
 

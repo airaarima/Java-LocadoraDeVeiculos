@@ -1,5 +1,6 @@
 package org.locadora.Menus;
 
+import org.locadora.Models.ListaLocacao;
 import org.locadora.Validadores.Validacoes;
 import org.locadora.Models.ListaCliente;
 import org.locadora.Models.Cliente;
@@ -11,12 +12,14 @@ import java.util.Scanner;
 public class MenuClientes {
     private Validacoes valid;
     private ListaCliente listaClientes;
+    private ListaLocacao listaLocacoes;
     private Scanner scanner;
 
-    public MenuClientes(ListaCliente listaClientes, Validacoes valid) {
+    public MenuClientes(ListaCliente listaClientes, Validacoes valid, ListaLocacao listaLocacoes) {
         this.listaClientes = listaClientes;
         this.scanner = new Scanner(System.in);
         this.valid = valid;
+        this.listaLocacoes = listaLocacoes;
     }
 
     public void exibir() {
@@ -148,14 +151,33 @@ public class MenuClientes {
 
     // LÓGICA PARA EXCLUIR UM CLIENTE
     public void excluirCliente() {
-
+        String excluirCpf;
+        boolean excluido = false;
+        do {
+            System.out.println("Digite o CPF do cliente que deseja excluir ou 0 para cancelar: ");
+            excluirCpf = scanner.nextLine().trim();
+            if (excluirCpf.equals("0")) {
+                System.out.println("Voltando para o menu anterior...");
+                return;
+            }
+            if (!valid.cpfValido(excluirCpf)) {
+                System.out.println("CPF INVÁLIDO! O CPF digitado não contém 11 digitos ou contém caracteres inválidos! (Ex: 123.456.789-01)");
+                continue;
+            }
+            excluido = true;
+        } while (!excluido);
+        boolean sucesso = listaClientes.removerCliente(excluirCpf, listaLocacoes);
+        if (sucesso) {
+            System.out.println("Cliente excluído com sucesso!");
+        }
+        System.out.println("Esse cliente possui locações ativas, não é possível excluí-lo!");
     }
 
     // LÓGICA DE EDITAR UM CLIENTE
     // EDITAR POR NOME
     public void editarNome(Cliente cliente) {
         String novoNome;
-        boolean nome_valido = false;
+        boolean nomeValido = false;
         do {
             System.out.print("Digite o novo nome (Ex: 'João Almeida da Silva')ou 0 para cancelar: ");
             novoNome = scanner.nextLine().trim();
@@ -170,8 +192,8 @@ public class MenuClientes {
                 continue;
             }
 
-            nome_valido = true;
-        } while (!nome_valido);
+            nomeValido = true;
+        } while (!nomeValido);
         cliente.setNome(novoNome);
 
         if (listaClientes.editarClientes(cliente.getCpf(), cliente)) {
