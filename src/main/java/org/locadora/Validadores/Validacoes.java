@@ -1,5 +1,7 @@
 package org.locadora.Validadores;
 
+import org.locadora.Models.Categoria;
+import org.locadora.Models.ListaCategoria;
 import org.locadora.Models.ListaCliente;
 import org.locadora.Models.ListaVeiculo;
 import org.locadora.Models.No;
@@ -55,5 +57,15 @@ public class Validacoes {
         }
         return false;
     }
+    public Categoria ValidarCategoriaPorNome(String nomeCategoria, ListaCategoria listaCategorias){
+            No<Categoria> atual = listaCategorias.getInicio();
+            while (atual != null) {
+                if (atual.getElemento().getNome().equalsIgnoreCase(nomeCategoria)) {
+                    return atual.getElemento();
+                }
+                atual = atual.getProximo();
+            }
+            return null;
+        }
     
 }
