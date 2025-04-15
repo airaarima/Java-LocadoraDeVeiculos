@@ -1,15 +1,15 @@
 package org.locadora.Menus;
 
 import org.locadora.Models.Categoria;
-import org.locadora.Models.CategoriaLista;
+import org.locadora.Models.ListaCategoria;
 
 import java.util.Scanner;
 
 public class MenuCategoria {
-    private CategoriaLista categoriasLista;
+    private ListaCategoria categoriasLista;
     private Scanner scanner;
 
-    public MenuCategoria(CategoriaLista categoriasLista){
+    public MenuCategoria(ListaCategoria categoriasLista){
         this.categoriasLista = categoriasLista;
         this.scanner = new Scanner(System.in);
     }
@@ -33,7 +33,7 @@ public class MenuCategoria {
                     incluirCategoria();
                     break;
                 case 2:
-//                    excluirCategoria();
+                    excluirCategoria();
                     break;
                 case 3:
                     editarCategoria();
@@ -92,5 +92,25 @@ public class MenuCategoria {
 
         if(categoriasLista.editar(id, atualizacaoCategoria)) System.out.println("Categoria atualizada com sucesso!");
         else System.out.println("Ocorreu um erro na atualização da categoria");
+    }
+
+    private void excluirCategoria(){
+        System.out.println("\n--- EXCLUIR CATEGORIA ---");
+        System.out.println("--- CATEGORIAS EM SISTEMA ---");
+        System.out.println(categoriasLista);
+        System.out.print("Informe o ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        if(categoriasLista.getById(id) == null){
+            System.out.println("Categoria não encontrada.");
+            return;
+        }
+
+        if(!categoriasLista.excluirCategoria(id)){
+            System.out.println("Não é possível excluir: existem veículos vinculados a esta categoria!");
+        }else{
+            System.out.println("Categoria excluída com sucesso!");
+        }
     }
 }

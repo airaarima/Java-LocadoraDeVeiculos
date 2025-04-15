@@ -1,12 +1,17 @@
 package org.locadora.Validadores;
 
 import org.locadora.Models.ListaClientes;
+import org.locadora.Models.ListaVeiculo;
+import org.locadora.Models.No;
+import org.locadora.Models.Veiculo;
 
 public class Validacoes {
     ListaClientes cliente;
+    ListaVeiculo veiculo;
 
-    public Validacoes(ListaClientes cliente) {
+    public Validacoes(ListaClientes cliente, ListaVeiculo veiculo) {
         this.cliente = cliente;
+        this.veiculo = veiculo;
     }
 
     public boolean cpfValido(String cpf) {
@@ -33,5 +38,16 @@ public class Validacoes {
         ;
         // permite 11 digitos de 0 a 9
         return cnh != null && cnh.matches("^[0-9]{11}+$");
+    }
+
+    public boolean existeVeiculoComCategoria(int idCategoria){
+        No<Veiculo> atual = veiculo.getInicio();
+        while (atual != null) {
+            if (atual.getElemento().getCategoria().getIdentificador() == idCategoria) {
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        return false;
     }
 }
