@@ -49,9 +49,6 @@ public class Validacoes {
 
     }
 
-    public boolean validarNumeroLugares(int lugares) {
-        return lugares >= 1 && lugares <= 9;
-    }
     public boolean existeVeiculoComCategoria(int idCategoria){
         No<Veiculo> atual = veiculo.getInicio();
         while (atual != null) {

@@ -16,6 +16,7 @@ public class MenuVeiculos {
     private ListaCategoria listaCategorias;
     private ListaCliente listaClientes;
     private ListaVeiculo listaVeiculos;
+    private Validacoes validacoes;
     
     
     public MenuVeiculos(ListaVeiculo veiculosLista, ListaCategoria listaCategorias) {
@@ -59,15 +60,10 @@ public class MenuVeiculos {
         System.out.println("\n--- INSERIR VEÍCULO ---");
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
-
+        
         if(listaVeiculos.buscarPorPlaca(placa) != null){
             System.out.println("Essa placa já está vinculada a um veículo existente.");
             return;
-        } else {
-            if (!placa.matches("^[A-Z]{3}-\\d{4}$")) {
-                System.out.println("Placa inválida. Formato correto: AAA-0000");
-                return;
-            }
         }
 
         System.out.print("Modelo: ");
@@ -80,10 +76,6 @@ public class MenuVeiculos {
         double potencia = scanner.nextDouble();
         System.out.print("Número de lugares: ");
         int numeroLugares = scanner.nextInt();
-        if(numeroLugares < 1 || numeroLugares > 9){
-            System.out.println("Número de lugares inválido. Deve ser entre 1 e 9.");
-            return;
-        }
         scanner.nextLine(); 
         System.out.print("Categoria (nome): ");
         String categoriaNome = scanner.nextLine();
