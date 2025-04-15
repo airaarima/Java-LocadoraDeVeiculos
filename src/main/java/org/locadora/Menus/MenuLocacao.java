@@ -125,13 +125,13 @@ public class MenuLocacao {
             return;
         }
 
-        locacoesLista.devolverVeiculo(locacaoParaDevolver);
+//        locacoesLista.devolverVeiculo(locacaoParaDevolver);
         System.out.println("Veículo devolvido com sucesso!");
     }
 
     private void filtrarVeiculosDisponiveis(){}
 
     private void listarVeiculosDisponiveis(){
-        locacoesLista.listarEmOrdemCrescente();
+        locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista);
     }
 }

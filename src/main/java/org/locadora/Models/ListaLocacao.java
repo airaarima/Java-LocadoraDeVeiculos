@@ -1,5 +1,9 @@
 package org.locadora.Models;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator; // serve para ordenar os veiculos, mas eu não entendi muito bem como funciona, então fiz um método pra cada ordenação
 
@@ -19,6 +23,21 @@ public class ListaLocacao extends Lista<Locacao> {
             atual = atual.getProximo();
         }
         return true;
+    }
+
+    public ListaVeiculo listarTodosVeiculosDisponiveis(ListaVeiculo todosVeiculos) {
+        ListaVeiculo veiculosDisponiveis = new ListaVeiculo();
+        No<Veiculo> atual = todosVeiculos.getInicio();
+
+        while (atual != null) {
+            Veiculo veiculo = atual.getElemento();
+            if (verificarVeiculoDisponivel(veiculo.getPlaca())) {
+                veiculosDisponiveis.insereFim(veiculo);
+            }
+            atual = atual.getProximo();
+        }
+
+        return veiculosDisponiveis;
     }
 
     public ListaVeiculo filtrarVeiculosDisponiveis(ListaVeiculo todosVeiculos, int potenciaMinima, int lugares, String categoria) {
@@ -62,13 +81,13 @@ public class ListaLocacao extends Lista<Locacao> {
         return false;
     }
 
-    public void locarVeiculo(Cliente cliente, Veiculo veiculo, LocalDate dataRetirada, LocalDate dataDevolucao, double valor) {
-        if(dataRetirada.isAfter(dataDevolucao)){
+    public void locarVeiculo(Locacao novaLocacao) {
+        if (novaLocacao.getDataRetirada().isAfter(novaLocacao.getDataDevolucao())) {
             System.out.println("Data de retirada não pode ser depois da data de devolução.");
             return;
         }
-        if (verificarVeiculoDisponivel(veiculo.getPlaca())) {
-            Locacao locacao = new Locacao(cliente, veiculo, dataRetirada, dataDevolucao, valor);
+        if (verificarVeiculoDisponivel(novaLocacao.getVeiculo().getPlaca())) {
+            Locacao locacao = new Locacao(novaLocacao.getCliente(), novaLocacao.getVeiculo(), novaLocacao.getDataRetirada(), novaLocacao.getDataDevolucao(), novaLocacao.getValor());
             super.insereFim(locacao);
         } else {
             System.out.println("Esse veículo já está locado.");
@@ -143,6 +162,48 @@ public class ListaLocacao extends Lista<Locacao> {
         } while (trocou);
     }
 
+    public void lerLocacoesCsv(ListaCliente clientes, ListaVeiculo veiculos) {
+        String caminhoCsv = "src/main/java/org/locadora/Data/Locacoes.csv";
+
+        try {
+            FileReader arquivoCsv = new FileReader(caminhoCsv);
+            BufferedReader br = new BufferedReader(arquivoCsv);
+            String linha;
+
+            // Pula o cabeçalho do csv
+            br.readLine();
+
+            while ((linha = br.readLine()) != null) {
+                String[] dados = linha.split(";");
+                if (dados.length == 5) {
+                    String cpfCliente = dados[0].trim();
+                    String placaVeiculo = dados[1].trim();
+                    LocalDate dataRetirada = LocalDate.parse(dados[2].trim());
+                    LocalDate dataDevolucao = LocalDate.parse(dados[3].trim());
+                    double valor = Double.parseDouble(dados[4].trim());
+
+                    // Buscar cliente e veículo nas listas correspondentes
+                    No<Cliente> cliente = clientes.buscarPorCpf(cpfCliente);
+                    No<Veiculo> veiculo = veiculos.buscarPorPlaca(placaVeiculo);
+
+                    if (cliente != null && veiculo != null) {
+                        Locacao locacao = new Locacao(
+                                cliente.getElemento(),
+                                veiculo.getElemento(),
+                                dataRetirada,
+                                dataDevolucao,
+                                valor
+                        );
+                        insereFim(locacao);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
-
+    }
+}

@@ -1,5 +1,9 @@
 package org.locadora.Models;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class ListaCliente extends Lista<Cliente> {
 
     public No<Cliente> buscarPorCpf(String cpf) {
@@ -57,6 +61,27 @@ public class ListaCliente extends Lista<Cliente> {
 
     public String listarClientesDoFim() {
         return super.toString();
+    }
+
+    public void lerClientesCsv() {
+        String caminhoCsv = "src/main/java/org/locadora/Data/Clientes.csv";
+
+        try{
+            FileReader arquivoCsv = new FileReader(caminhoCsv);
+            BufferedReader br = new BufferedReader(arquivoCsv);
+            String linha;
+
+            // Pula o cabeçalho do csv
+            br.readLine();
+
+            while ((linha = br.readLine()) != null){
+                String[] dados = linha.split(";");
+                Cliente cliente = new Cliente(dados[0], dados[1], dados[2], dados[3]);
+                insereFim(cliente);
+            }
+        }catch (IOException exception){
+            System.out.println(exception);
+        }
     }
 }
 

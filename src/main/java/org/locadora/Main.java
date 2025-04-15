@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import org.locadora.Menus.MenuCategoria;
 import org.locadora.Menus.MenuClientes;
+import org.locadora.Menus.MenuLocacao;
 import org.locadora.Menus.MenuVeiculos;
 import org.locadora.Models.ListaCategoria;
 import org.locadora.Models.ListaCliente;
+import org.locadora.Models.ListaLocacao;
 import org.locadora.Models.ListaVeiculo;
 import org.locadora.Validadores.Validacoes;
 
@@ -15,9 +17,11 @@ public class Main {
     private static ListaVeiculo veiculos = new ListaVeiculo();
     private static ListaCliente clientes = new ListaCliente();
     private static ListaCategoria categorias = new ListaCategoria();
+    private static ListaLocacao locacoes = new ListaLocacao();
     private static Validacoes valid = new Validacoes(clientes, veiculos, categorias);
+    private static MenuLocacao menuLocacoes = new MenuLocacao(locacoes, clientes, veiculos);
     private static MenuCategoria menuCategoria = new MenuCategoria(categorias, valid);
-    private static MenuClientes menuClientes = new MenuClientes(clientes, valid);
+    private static MenuClientes menuClientes = new MenuClientes(clientes, valid, locacoes);
     private static MenuVeiculos menuVeiculos = new MenuVeiculos(veiculos, categorias);
 
     public static void main(String[] args) {
@@ -48,7 +52,7 @@ public class Main {
                     menuCategoria.exibir();
                     break;
                 case '4':
-//                    menuLocacoes();
+                    menuLocacoes.exibir();
                     break;
                 case '0':
                     System.out.println("Saindo do sistema...");
@@ -63,7 +67,9 @@ public class Main {
         try {
             categorias.lerCategoriasCsv();
             veiculos.lerVeiculosCsv(categorias);
+            clientes.lerClientesCsv();
             System.out.println("Dados carregados com sucesso!");
+            locacoes.lerLocacoesCsv(clientes, veiculos);
         } catch (Exception e) {
             System.out.println("Erro ao carregar dados do arquivo CSV: " + e.getMessage());
         }
