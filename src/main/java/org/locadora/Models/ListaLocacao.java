@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator; // serve para ordenar os veiculos, mas eu não entendi muito bem como funciona, então fiz um método pra cada ordenação
+import java.util.Locale;
 
 public class ListaLocacao extends Lista<Locacao> {
 
@@ -26,13 +28,13 @@ public class ListaLocacao extends Lista<Locacao> {
     }
 
     public ListaVeiculo listarTodosVeiculosDisponiveis(ListaVeiculo todosVeiculos) {
-        ListaVeiculo veiculosDisponiveis = new ListaVeiculo();
+        ListaVeiculo veiculosDisponiveis = todosVeiculos;
         No<Veiculo> atual = todosVeiculos.getInicio();
 
         while (atual != null) {
             Veiculo veiculo = atual.getElemento();
-            if (verificarVeiculoDisponivel(veiculo.getPlaca())) {
-                veiculosDisponiveis.insereFim(veiculo);
+            if (!verificarVeiculoDisponivel(veiculo.getPlaca())) {
+                veiculosDisponiveis.remove(veiculo);
             }
             atual = atual.getProximo();
         }
@@ -163,6 +165,9 @@ public class ListaLocacao extends Lista<Locacao> {
     }
 
     public void lerLocacoesCsv(ListaCliente clientes, ListaVeiculo veiculos) {
+        final DateTimeFormatter DATE_FORMATTER =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.forLanguageTag("pt-BR"));
+
         String caminhoCsv = "src/main/java/org/locadora/Data/Locacoes.csv";
 
         try {
@@ -178,8 +183,8 @@ public class ListaLocacao extends Lista<Locacao> {
                 if (dados.length == 5) {
                     String cpfCliente = dados[0].trim();
                     String placaVeiculo = dados[1].trim();
-                    LocalDate dataRetirada = LocalDate.parse(dados[2].trim());
-                    LocalDate dataDevolucao = LocalDate.parse(dados[3].trim());
+                    LocalDate dataRetirada = LocalDate.parse(dados[2].trim(), DATE_FORMATTER);
+                    LocalDate dataDevolucao = LocalDate.parse(dados[3].trim(), DATE_FORMATTER);
                     double valor = Double.parseDouble(dados[4].trim());
 
                     // Buscar cliente e veículo nas listas correspondentes

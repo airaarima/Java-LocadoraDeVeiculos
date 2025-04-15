@@ -45,7 +45,7 @@ public class MenuLocacao {
                     filtrarVeiculosDisponiveis();
                     break;
                 case 4:
-                    //listarLocacoesAtivas();
+                    listarLocacoesAtivas();
                     break;
                 case 5:
                     listarVeiculosDisponiveis();
@@ -131,7 +131,11 @@ public class MenuLocacao {
 
     private void filtrarVeiculosDisponiveis(){}
 
+    public void listarLocacoesAtivas(){
+        System.out.println(locacoesLista);
+    }
+
     private void listarVeiculosDisponiveis(){
-        locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista);
+        System.out.println(locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista));
     }
 }
