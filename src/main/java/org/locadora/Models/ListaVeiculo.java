@@ -3,8 +3,16 @@ package org.locadora.Models;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+<<<<<<< HEAD
+=======
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+>>>>>>> b0b6bc19c688cd9760b90e27eb9d6f999b9353df
 
 public class ListaVeiculo extends Lista<Veiculo> {
+
+    private static final Logger logger = Logger.getLogger(ListaVeiculo.class.getName());
 
     public No<Veiculo> buscarPorPlaca(String placa) {
         No<Veiculo> atual = getInicio();
@@ -84,11 +92,16 @@ public class ListaVeiculo extends Lista<Veiculo> {
                 insereFim(veiculo);
             }
         } catch (IOException exception) {
+<<<<<<< HEAD
             System.out.println(exception);
+=======
+            logger.log(Level.SEVERE, "Erro ao ler o CSV de categorias", exception);
+>>>>>>> b0b6bc19c688cd9760b90e27eb9d6f999b9353df
         }
     }
     
     }
+<<<<<<< HEAD
     /* public void lerCategoriasCsv() {
         String caminhoCsv = "src/main/java/org/locadora/Data/Categorias.csv";
 
@@ -110,3 +123,5 @@ public class ListaVeiculo extends Lista<Veiculo> {
         }
     }
  */
+=======
+>>>>>>> b0b6bc19c688cd9760b90e27eb9d6f999b9353df
