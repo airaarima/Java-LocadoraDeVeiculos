@@ -3,16 +3,24 @@ package org.locadora.Menus;
 import java.util.Scanner;
 
 import org.locadora.Models.Categoria;
+import org.locadora.Models.ListaCategoria;
+import org.locadora.Models.ListaCliente;
 import org.locadora.Models.ListaVeiculo;
 import org.locadora.Models.No;
 import org.locadora.Models.Veiculo;
+import org.locadora.Validadores.Validacoes;
+
 
 public class MenuVeiculos {
-    private ListaVeiculo veiculosLista;
     private Scanner scanner;
-
-    public MenuVeiculos(ListaVeiculo veiculosLista){
-        this.veiculosLista = veiculosLista;
+    private ListaCategoria listaCategorias;
+    private ListaCliente listaClientes;
+    private ListaVeiculo listaVeiculos;
+    
+    
+    public MenuVeiculos(ListaVeiculo veiculosLista, ListaCategoria listaCategorias) {
+        this.listaVeiculos = veiculosLista;
+        this.listaCategorias = listaCategorias;
         this.scanner = new Scanner(System.in);
     }
 
@@ -41,7 +49,7 @@ public class MenuVeiculos {
                     editarVeiculo();
                     break;
                 case 4:
-                    veiculosLista.listarDoInicio();
+                    listaVeiculos.listarDoInicio();
                     break;
             }
         } while (opcao != 0);
@@ -52,7 +60,7 @@ public class MenuVeiculos {
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
 
-        if(veiculosLista.buscarPorPlaca(placa) != null){
+        if(listaVeiculos.buscarPorPlaca(placa) != null){
             System.out.println("Essa placa já está vinculada a um veículo existente.");
             return;
         }
@@ -72,23 +80,31 @@ public class MenuVeiculos {
         String categoriaNome = scanner.nextLine();
         
         // Criação do novo veículo com todos os dados
-        Categoria categoria = new Categoria(numeroLugares, categoriaNome); 
-        Veiculo novoVeiculo = new Veiculo(placa, modelo, marca, ano, potencia, numeroLugares, categoria);
+        Validacoes validacoes = new Validacoes(listaClientes, listaVeiculos, listaCategorias);  // Agora passando a lista de categorias
 
-        veiculosLista.adicionar(novoVeiculo);
-    }
+        // Verifica a categoria
+        Categoria categoria = validacoes.validarCategoriaPorNome(categoriaNome, listaCategorias);
+        if (categoria == null) {
+            System.out.println("Categoria \"" + categoriaNome + "\" não encontrada.");
+            return;
+        }
+
+        // Criação do novo veículo com todos os dados
+        Veiculo novoVeiculo = new Veiculo(placa, modelo, marca, ano, potencia, numeroLugares, categoria);
+        listaVeiculos.adicionar(novoVeiculo);
+        }
 
     private void excluirVeiculo(){
         System.out.println("\n--- EXCLUIR VEÍCULO ---");
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
 
-        if(veiculosLista.buscarPorPlaca(placa) == null){
+        if(listaVeiculos.buscarPorPlaca(placa) == null){
             System.out.println("Veículo não encontrado.");
             return;
         }
 
-        if(veiculosLista.remover(placa)) {
+        if(listaVeiculos.remover(placa)) {
             System.out.println("Veículo excluído com sucesso!");
         } else {
             System.out.println("Ocorreu um erro na exclusão do veículo.");
@@ -100,7 +116,7 @@ public class MenuVeiculos {
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
 
-        No<Veiculo> veiculoEncontrado = veiculosLista.buscarPorPlaca(placa);
+        No<Veiculo> veiculoEncontrado = listaVeiculos.buscarPorPlaca(placa);
         if(veiculoEncontrado == null){
             System.out.println("Veículo não encontrado.");
             return;
@@ -124,7 +140,7 @@ public class MenuVeiculos {
         Categoria categoria = new Categoria(numeroLugares, categoriaNome); // Criar nova categoria se necessário
         Veiculo veiculoAtualizado = new Veiculo(placa, modelo, marca, ano, potencia, numeroLugares, categoria);
 
-        if(veiculosLista.editar(placa, veiculoAtualizado)) {
+        if(listaVeiculos.editar(placa, veiculoAtualizado)) {
             System.out.println("Veículo atualizado com sucesso!");
         } else {
             System.out.println("Ocorreu um erro na atualização do veículo.");

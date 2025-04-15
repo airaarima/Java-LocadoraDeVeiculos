@@ -10,10 +10,12 @@ import org.locadora.Models.Veiculo;
 public class Validacoes {
     ListaCliente cliente;
     ListaVeiculo veiculo;
+    ListaCategoria categoria;
 
-    public Validacoes(ListaCliente cliente, ListaVeiculo veiculo) {
+    public Validacoes(ListaCliente cliente, ListaVeiculo veiculo, ListaCategoria categoria) {
         this.cliente = cliente;
         this.veiculo = veiculo;
+        this.categoria = categoria;
     }
 
     public boolean cpfValido(String cpf) {
@@ -57,7 +59,7 @@ public class Validacoes {
         }
         return false;
     }
-    public Categoria ValidarCategoriaPorNome(String nomeCategoria, ListaCategoria listaCategorias){
+    public Categoria validarCategoriaPorNome(String nomeCategoria, ListaCategoria listaCategorias){
             No<Categoria> atual = listaCategorias.getInicio();
             while (atual != null) {
                 if (atual.getElemento().getNome().equalsIgnoreCase(nomeCategoria)) {
