@@ -16,6 +16,7 @@ public class MenuVeiculos {
     private ListaCategoria listaCategorias;
     private ListaCliente listaClientes;
     private ListaVeiculo listaVeiculos;
+    private Validacoes validacoes;
     
     
     public MenuVeiculos(ListaVeiculo veiculosLista, ListaCategoria listaCategorias) {
@@ -59,7 +60,7 @@ public class MenuVeiculos {
         System.out.println("\n--- INSERIR VEÍCULO ---");
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
-
+        
         if(listaVeiculos.buscarPorPlaca(placa) != null){
             System.out.println("Essa placa já está vinculada a um veículo existente.");
             return;

@@ -59,8 +59,9 @@ public class Validacoes {
         }
         return false;
     }
-    public Categoria validarCategoriaPorNome(String nomeCategoria, ListaCategoria listaCategorias){
-            No<Categoria> atual = listaCategorias.getInicio();
+    
+    public Categoria validarCategoriaPorNome(String nomeCategoria, ListaCategoria categoria){
+            No<Categoria> atual = categoria.getInicio();
             while (atual != null) {
                 if (atual.getElemento().getNome().equalsIgnoreCase(nomeCategoria)) {
                     return atual.getElemento();

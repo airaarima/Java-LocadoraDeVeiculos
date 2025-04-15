@@ -15,11 +15,11 @@ public class Locacao {
         this.dataDevolucao = dataDevolucao;
         this.valor = valor;
     }
-    public String getCliente() {
-        return cliente.getCnh();
+    public Cliente getCliente() {
+        return cliente;
     }
-    public String getVeiculo() {
-        return veiculo.getPlaca();
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
     public LocalDate getDataRetirada() {
         return dataRetirada;

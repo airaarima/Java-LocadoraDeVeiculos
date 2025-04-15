@@ -72,14 +72,14 @@ public class Veiculo {
     @Override
     public String toString() {
         return "Veiculo{" +
-                "placa='" + placa + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", marca='" + marca + '\'' +
-                ", ano=" + ano +
-                ", potencia=" + potencia +
-                ", numeroLugares=" + numeroLugares +
-                ", categoria=" + categoria +
-                '}';
+                "Placa: '" + placa + "\n" +
+                "Modelo: '" + modelo + "\n" +
+                "Marca: '" + marca + "\n" + 
+                "Ano: " + ano + "\n"+
+                "Potência: " + potencia + "\n"+
+                "Número de lugares: " + numeroLugares + "\n" +
+                "Categoria:" + categoria + "\n" +
+                "}";
     }
     @Override
     public boolean equals(Object obj) {
