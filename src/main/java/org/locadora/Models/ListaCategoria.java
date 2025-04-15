@@ -5,11 +5,6 @@ import org.locadora.Validadores.Validacoes;
 import java.io.*;
 
 public class ListaCategoria extends Lista<Categoria> {
-    private Validacoes valid;
-
-    public ListaCategoria(Validacoes valid){
-        this.valid = valid;
-    }
     public boolean editar(int id, Categoria categoriaAtualizada){
         No<Categoria> editarElemento = getById(id);
         if(editarElemento == null) return false;
@@ -48,18 +43,5 @@ public class ListaCategoria extends Lista<Categoria> {
         }catch (IOException exception){
             System.out.println(exception);
         }
-    }
-
-    public boolean excluirCategoria(int idCategoria){
-        // Verifica se a categoria está atrelada a um veículo. Se sim, retorna false, identificando que a categoria não pode ser deletada
-        if (valid.existeVeiculoComCategoria(idCategoria)) {
-            return false;
-        }
-        No<Categoria> categoria = getById(idCategoria);
-
-        if(remove(categoria.getElemento())){
-            return true;
-        }
-        return false;
     }
 }
