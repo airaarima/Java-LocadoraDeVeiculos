@@ -1,15 +1,15 @@
 package org.locadora.Validadores;
 
-import org.locadora.Models.ListaClientes;
+import org.locadora.Models.ListaCliente;
 import org.locadora.Models.ListaVeiculo;
 import org.locadora.Models.No;
 import org.locadora.Models.Veiculo;
 
 public class Validacoes {
-    ListaClientes cliente;
+    ListaCliente cliente;
     ListaVeiculo veiculo;
 
-    public Validacoes(ListaClientes cliente, ListaVeiculo veiculo) {
+    public Validacoes(ListaCliente cliente, ListaVeiculo veiculo) {
         this.cliente = cliente;
         this.veiculo = veiculo;
     }
@@ -40,6 +40,11 @@ public class Validacoes {
         return cnh != null && cnh.matches("^[0-9]{11}+$");
     }
 
+    public boolean existeCnh(String cnh){
+        return cliente.buscarPorCnh(cnh) != null;
+
+    }
+
     public boolean existeVeiculoComCategoria(int idCategoria){
         No<Veiculo> atual = veiculo.getInicio();
         while (atual != null) {
@@ -50,4 +55,5 @@ public class Validacoes {
         }
         return false;
     }
+    
 }

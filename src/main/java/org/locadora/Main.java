@@ -4,16 +4,16 @@ import org.locadora.Menus.MenuCategoria;
 import org.locadora.Menus.MenuClientes;
 import org.locadora.Menus.MenuVeiculos;
 import org.locadora.Models.ListaCategoria;
-import org.locadora.Models.ListaClientes;
 import org.locadora.Models.ListaVeiculo;
+import org.locadora.Models.ListaCliente;
 import org.locadora.Validadores.Validacoes;
 
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static ListaClientes clientes = new ListaClientes();
     private static ListaVeiculo veiculo = new ListaVeiculo();
+    private static ListaCliente clientes = new ListaCliente();
     private static Validacoes valid = new Validacoes(clientes, veiculo);
     private static ListaCategoria categorias = new ListaCategoria(valid);
     private static MenuCategoria menuCategoria = new MenuCategoria(categorias);

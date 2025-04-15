@@ -1,9 +1,9 @@
 package org.locadora.Models;
 
-public class ListaClientes extends Lista<Clientes> {
+public class ListaCliente extends Lista<Cliente> {
 
-    public No<Clientes> buscarPorCpf(String cpf) {
-        No<Clientes> encontrarElemento = getInicio();
+    public No<Cliente> buscarPorCpf(String cpf) {
+        No<Cliente> encontrarElemento = getInicio();
         while (encontrarElemento != null) {
             if (encontrarElemento.getElemento().getCpf().equals(cpf)) {
                 return encontrarElemento;
@@ -13,12 +13,23 @@ public class ListaClientes extends Lista<Clientes> {
         return null;
     }
 
-    public void adicionarCliente(Clientes cliente) {
+    public No<Cliente> buscarPorCnh(String cnh){
+        No<Cliente> encontrarElemento = getInicio();
+        while (encontrarElemento != null) {
+            if (encontrarElemento.getElemento().getCnh().equals(cnh)) {
+                return encontrarElemento;
+            }
+            encontrarElemento = encontrarElemento.getProximo();
+        }
+        return null;
+    }
+
+    public void adicionarCliente(Cliente cliente) {
         super.insereFim(cliente);
     }
 
-    public boolean editarClientes(String cpf, Clientes clienteAtualizado) {
-        No<Clientes> editarElemento = buscarPorCpf(cpf);
+    public boolean editarClientes(String cpf, Cliente clienteAtualizado) {
+        No<Cliente> editarElemento = buscarPorCpf(cpf);
         if (editarElemento == null) {
             return false;
         }
@@ -27,11 +38,11 @@ public class ListaClientes extends Lista<Clientes> {
     }
 
     public boolean removerCliente(String cpf) {
-        No<Clientes> excluirElemento = buscarPorCpf(cpf);
+        No<Cliente> excluirElemento = buscarPorCpf(cpf);
         if (excluirElemento == null) {
             return false;
         }
-        Clientes clienteExcluido = excluirElemento.getElemento();
+        Cliente clienteExcluido = excluirElemento.getElemento();
         return super.remove(clienteExcluido);
     }
 

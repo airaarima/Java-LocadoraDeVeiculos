@@ -1,9 +1,9 @@
 package org.locadora.Models;
 
-public class Clientes {
+public class Cliente {
     private String nome, cpf, cnh, telefone;
 
-    public Clientes(String nome, String cpf, String cnh, String telefone) {
+    public Cliente(String nome, String cpf, String cnh, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.cnh = cnh;
@@ -37,8 +37,8 @@ public class Clientes {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Clientes) {
-            Clientes cliente = (Clientes) obj;
+        if(obj instanceof Cliente) {
+            Cliente cliente = (Cliente) obj;
             return this.cpf.equals(cliente.getCpf());
         }
         return false;

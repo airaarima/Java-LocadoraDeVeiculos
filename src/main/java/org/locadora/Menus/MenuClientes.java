@@ -1,8 +1,8 @@
 package org.locadora.Menus;
 
 import org.locadora.Validadores.Validacoes;
-import org.locadora.Models.ListaClientes;
-import org.locadora.Models.Clientes;
+import org.locadora.Models.ListaCliente;
+import org.locadora.Models.Cliente;
 import org.locadora.Models.No;
 
 
@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 public class MenuClientes {
     private Validacoes valid;
-    private ListaClientes listaClientes;
+    private ListaCliente listaClientes;
     private Scanner scanner;
 
-    public MenuClientes(ListaClientes listaClientes, Validacoes valid) {
+    public MenuClientes(ListaCliente listaClientes, Validacoes valid) {
         this.listaClientes = listaClientes;
         this.scanner = new Scanner(System.in);
         this.valid = valid;
@@ -140,7 +140,7 @@ public class MenuClientes {
             telefoneValido = true;
         } while (!telefoneValido);
 
-        Clientes novoCliente = new Clientes(nome, cpf, cnh, telefone);
+        Cliente novoCliente = new Cliente(nome, cpf, cnh, telefone);
         listaClientes.adicionarCliente(novoCliente);
         System.out.println("Cliente cadastrado com sucesso!");
     }
@@ -153,7 +153,7 @@ public class MenuClientes {
 
     // LÓGICA DE EDITAR UM CLIENTE
     // EDITAR POR NOME
-    public void editarNome(Clientes cliente) {
+    public void editarNome(Cliente cliente) {
         String novoNome;
         boolean nome_valido = false;
         do {
@@ -181,7 +181,7 @@ public class MenuClientes {
 
 
     // EDITAR POR CPF
-    public void editarCpf(Clientes cliente) {
+    public void editarCpf(Cliente cliente) {
         String cpfAntigo = cliente.getCpf();
         String novoCpf;
         boolean cpfValido = false;
@@ -215,7 +215,7 @@ public class MenuClientes {
 
 
     // EDITAR POR CNH
-    public void editarCnh(Clientes cliente) {
+    public void editarCnh(Cliente cliente) {
         String novoCnh;
         boolean cnhValida = false;
 
@@ -244,7 +244,7 @@ public class MenuClientes {
 
 
     // EDITAR POR TELEFONE
-    public void editarTelefone(Clientes cliente) {
+    public void editarTelefone(Cliente cliente) {
         String novoTelefone;
         boolean telefoneValido = false;
         do {
@@ -285,15 +285,15 @@ public class MenuClientes {
             return;
         }
 
-        No<Clientes> procuraCpf = listaClientes.buscarPorCpf(cpf);
+        No<Cliente> procuraCpf = listaClientes.buscarPorCpf(cpf);
         if (procuraCpf == null) {
             System.out.println("Esse CPF não existe no sistema");
             return;
         }
 
-        Clientes clienteOriginal = procuraCpf.getElemento();
+        Cliente clienteOriginal = procuraCpf.getElemento();
 
-        Clientes clienteEditado = new Clientes(
+        Cliente clienteEditado = new Cliente(
                 clienteOriginal.getNome(),
                 clienteOriginal.getCpf(),
                 clienteOriginal.getCnh(),
