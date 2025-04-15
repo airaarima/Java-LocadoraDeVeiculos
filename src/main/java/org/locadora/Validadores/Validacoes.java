@@ -49,6 +49,9 @@ public class Validacoes {
 
     }
 
+    public boolean validarNumeroLugares(int lugares) {
+        return lugares >= 1 && lugares <= 9;
+    }
     public boolean existeVeiculoComCategoria(int idCategoria){
         No<Veiculo> atual = veiculo.getInicio();
         while (atual != null) {
@@ -59,8 +62,9 @@ public class Validacoes {
         }
         return false;
     }
-    public Categoria validarCategoriaPorNome(String nomeCategoria, ListaCategoria listaCategorias){
-            No<Categoria> atual = listaCategorias.getInicio();
+    
+    public Categoria validarCategoriaPorNome(String nomeCategoria, ListaCategoria categoria){
+            No<Categoria> atual = categoria.getInicio();
             while (atual != null) {
                 if (atual.getElemento().getNome().equalsIgnoreCase(nomeCategoria)) {
                     return atual.getElemento();

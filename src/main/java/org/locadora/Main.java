@@ -15,10 +15,10 @@ public class Main {
     private static ListaVeiculo veiculos = new ListaVeiculo();
     private static ListaCliente clientes = new ListaCliente();
     private static ListaCategoria categorias = new ListaCategoria();
-    private static Validacoes valid = new Validacoes(clientes, veiculo, categorias);
+    private static Validacoes valid = new Validacoes(clientes, veiculos, categorias);
     private static MenuCategoria menuCategoria = new MenuCategoria(categorias, valid);
     private static MenuClientes menuClientes = new MenuClientes(clientes, valid);
-    private static MenuVeiculos menuVeiculos = new MenuVeiculos(veiculo, categorias);
+    private static MenuVeiculos menuVeiculos = new MenuVeiculos(veiculos, categorias);
 
     public static void main(String[] args) {
         // Realiza a leitura dos arquivos CSV
@@ -62,7 +62,7 @@ public class Main {
     private static void carregarDadosCsv() {
         try {
             categorias.lerCategoriasCsv();
-            veiculo.lerVeiculosCsv(categorias);
+            veiculos.lerVeiculosCsv(categorias);
             System.out.println("Dados carregados com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao carregar dados do arquivo CSV: " + e.getMessage());
