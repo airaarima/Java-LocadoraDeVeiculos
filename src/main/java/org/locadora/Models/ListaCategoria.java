@@ -2,7 +2,7 @@ package org.locadora.Models;
 
 import java.io.*;
 
-public class CategoriaLista extends Lista<Categoria> {
+public class ListaCategoria extends Lista<Categoria> {
     public boolean editar(int id, Categoria categoriaAtualizada){
         No<Categoria> editarElemento = getById(id);
         if(editarElemento == null) return false;

@@ -1,11 +1,11 @@
 package org.locadora.Validadores;
 
-import org.locadora.Models.ListaClientes;
+import org.locadora.Models.ListaCliente;
 
 public class Validacoes {
-    ListaClientes cliente;
+    ListaCliente cliente;
 
-    public Validacoes(ListaClientes cliente) {
+    public Validacoes(ListaCliente cliente) {
         this.cliente = cliente;
     }
 
@@ -33,5 +33,9 @@ public class Validacoes {
         ;
         // permite 11 digitos de 0 a 9
         return cnh != null && cnh.matches("^[0-9]{11}+$");
+    }
+    public boolean existeCnh(String cnh){
+        return cliente.buscarPorCnh(cnh) != null;
+
     }
 }

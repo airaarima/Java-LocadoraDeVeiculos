@@ -1,15 +1,15 @@
 package org.locadora.Menus;
 
 import org.locadora.Models.Categoria;
-import org.locadora.Models.CategoriaLista;
+import org.locadora.Models.ListaCategoria;
 
 import java.util.Scanner;
 
 public class MenuCategoria {
-    private CategoriaLista categoriasLista;
+    private ListaCategoria categoriasLista;
     private Scanner scanner;
 
-    public MenuCategoria(CategoriaLista categoriasLista){
+    public MenuCategoria(ListaCategoria categoriasLista){
         this.categoriasLista = categoriasLista;
         this.scanner = new Scanner(System.in);
     }
