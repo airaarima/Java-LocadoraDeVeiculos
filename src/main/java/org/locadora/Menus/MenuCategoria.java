@@ -2,15 +2,19 @@ package org.locadora.Menus;
 
 import org.locadora.Models.Categoria;
 import org.locadora.Models.ListaCategoria;
+import org.locadora.Models.No;
+import org.locadora.Validadores.Validacoes;
 
 import java.util.Scanner;
 
 public class MenuCategoria {
     private ListaCategoria categoriasLista;
+    private Validacoes valid;
     private Scanner scanner;
 
-    public MenuCategoria(ListaCategoria categoriasLista){
+    public MenuCategoria(ListaCategoria categoriasLista, Validacoes valid){
         this.categoriasLista = categoriasLista;
+        this.valid = valid;
         this.scanner = new Scanner(System.in);
     }
 
@@ -102,14 +106,19 @@ public class MenuCategoria {
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        if(categoriasLista.getById(id) == null){
+        No<Categoria> categoria = categoriasLista.getById(id);
+
+        if(categoria == null){
             System.out.println("Categoria não encontrada.");
             return;
         }
 
-        if(!categoriasLista.excluirCategoria(id)){
+        if (valid.existeVeiculoComCategoria(id)) {
             System.out.println("Não é possível excluir: existem veículos vinculados a esta categoria!");
-        }else{
+            return;
+        }
+
+        if(categoriasLista.remove(categoria.getElemento())){
             System.out.println("Categoria excluída com sucesso!");
         }
     }
