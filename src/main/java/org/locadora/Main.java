@@ -22,7 +22,7 @@ public class Main {
     private static MenuLocacao menuLocacoes = new MenuLocacao(locacoes, clientes, veiculos);
     private static MenuCategoria menuCategoria = new MenuCategoria(categorias, valid);
     private static MenuClientes menuClientes = new MenuClientes(clientes, valid, locacoes);
-    private static MenuVeiculos menuVeiculos = new MenuVeiculos(veiculos, categorias);
+    private static MenuVeiculos menuVeiculos = new MenuVeiculos(veiculos, categorias, locacoes);
 
     public static void main(String[] args) {
         // Realiza a leitura dos arquivos CSV

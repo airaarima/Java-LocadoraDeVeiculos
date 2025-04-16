@@ -61,6 +61,10 @@ public class MenuLocacao {
     }
 
     private void locarVeiculo(){
+        boolean dataValida = false;
+        LocalDate dataRetirada = null;
+        LocalDate dataDevolucao = null;
+
         System.out.println("\n--- LOCAR VEÍCULO ---");
 
         // Listar veículos disponíveis
@@ -73,11 +77,30 @@ public class MenuLocacao {
         System.out.print("CPF do cliente: ");
         String cpf = scanner.nextLine();
 
-        System.out.print("Data de retirada (dd/mm/aaaa): ");
-        LocalDate dataRetirada = LocalDate.parse(scanner.nextLine(), dateFormatter);
+        while (!dataValida) {
+            try {
+                System.out.print("Data de retirada (dd/mm/aaaa): ");
+                dataRetirada = LocalDate.parse(scanner.nextLine(), dateFormatter);
+                dataValida = true;
+            } catch (Exception e) {
+                System.out.println("Data inválida! Tente novamente.");
+            }
+        }
+        dataValida = false;
+        while (!dataValida) {
+            try {
+                System.out.print("Data de devolução (dd/mm/aaaa): ");
+                dataDevolucao = LocalDate.parse(scanner.nextLine(), dateFormatter);
+                if(dataRetirada.isAfter(dataDevolucao)){
+                    System.out.println("Data de retirada não pode ser depois da data de devolução.");
+                    continue;
+                }
 
-        System.out.print("Data de devolução (dd/mm/aaaa): ");
-        LocalDate dataDevolucao = LocalDate.parse(scanner.nextLine(), dateFormatter);
+                dataValida = true;
+            } catch (Exception e) {
+                System.out.println("Data inválida! Tente novamente.");
+            }
+        }
 
         System.out.print("Valor total: ");
         double valor = scanner.nextDouble();
