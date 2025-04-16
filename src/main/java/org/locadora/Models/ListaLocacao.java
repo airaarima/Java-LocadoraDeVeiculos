@@ -77,7 +77,21 @@ public class ListaLocacao extends Lista<Locacao> {
             System.out.println("Esse veículo já está locado.");
         }
     }
-
+    public boolean existeLocacaoAtivaPorPlaca(String placa) {
+        No<Locacao> atual = getInicio();
+        LocalDate hoje = LocalDate.now();
+        
+        while (atual != null) {
+            Locacao locacao = atual.getElemento();
+            // Verifica se a locação está ativa (data de devolução no futuro)
+            if (!locacao.getDataDevolucao().isBefore(hoje) && 
+                locacao.getVeiculo().getPlaca().equals(placa)) {
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        return false;
+    }
     public ListaVeiculo filtrarVeiculosPorPotencia(double potencia, ListaVeiculo veiculos) {
         ListaVeiculo veiculosFiltrados = new ListaVeiculo();
         No<Veiculo> atual = veiculos.getInicio();

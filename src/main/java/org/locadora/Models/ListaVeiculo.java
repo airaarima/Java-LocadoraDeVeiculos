@@ -3,8 +3,8 @@ package org.locadora.Models;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ListaVeiculo extends Lista<Veiculo> {
@@ -57,6 +57,7 @@ public class ListaVeiculo extends Lista<Veiculo> {
             atual = atual.getAnterior();
         }
     }
+    
     public void lerVeiculosCsv(ListaCategoria listaCategorias) {
         String caminhoCsv = "src/main/java/org/locadora/Data/Veiculos.csv";
     
