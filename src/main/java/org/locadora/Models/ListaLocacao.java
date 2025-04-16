@@ -112,6 +112,23 @@ public class ListaLocacao extends Lista<Locacao> {
         return veiculosFiltrados;
     }
 
+    public void ordenarVeiculosPorCategoria(ListaVeiculo veiculos) {
+        boolean trocou;
+        do {
+            trocou = false;
+            No<Veiculo> atual = veiculos.getInicio();
+            while (atual != null && atual.getProximo() != null) {
+                if (atual.getElemento().getPotencia() > atual.getProximo().getElemento().getCategoria().getIdentificador()) {
+                    Veiculo mudaPosicao = atual.getElemento();
+                    atual.setElemento(atual.getProximo().getElemento());
+                    atual.getProximo().setElemento(mudaPosicao);
+                    trocou = true;
+                }
+                atual = atual.getProximo();
+            }
+        } while (trocou);
+    }
+
     public void lerLocacoesCsv(ListaCliente clientes, ListaVeiculo veiculos) {
         final DateTimeFormatter DATE_FORMATTER =
                 DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.forLanguageTag("pt-BR"));
