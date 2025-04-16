@@ -31,11 +31,11 @@ public class MenuVeiculos {
         int opcao;
         do {
             System.out.println("\n===== MENU VEÍCULOS =====");
-            System.out.println("1. Incluir Veículo");
-            System.out.println("2. Excluir Veículo");
-            System.out.println("3. Editar Veículo");
-            System.out.println("4. Listar Veículos");
-            System.out.println("0. Voltar");
+            System.out.println("[1] Incluir Veículo");
+            System.out.println("[2] Excluir Veículo");
+            System.out.println("[3] Editar Veículo");
+            System.out.println("[4] Listar Veículos");
+            System.out.println("[0] Voltar");
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();

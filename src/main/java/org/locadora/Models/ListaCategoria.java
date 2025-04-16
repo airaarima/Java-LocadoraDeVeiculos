@@ -7,9 +7,12 @@ import java.io.*;
 public class ListaCategoria extends Lista<Categoria> {
     public boolean editar(int id, Categoria categoriaAtualizada){
         No<Categoria> editarElemento = getById(id);
-        if(editarElemento == null) return false;
+        if(editarElemento == null){
+            return false;
+        }
 
-        editarElemento.setElemento(categoriaAtualizada);
+        Categoria categoriaAntiga = editarElemento.getElemento();
+        categoriaAntiga.setNome(categoriaAtualizada.getNome());
         return true;
     }
 
