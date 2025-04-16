@@ -173,8 +173,9 @@ public class MenuClientes {
         boolean sucesso = listaClientes.removerCliente(excluirCpf, listaLocacoes);
         if (sucesso) {
             System.out.println("Cliente excluído com sucesso!");
+        } else {
+            System.out.println("Esse cliente possui locações ativas, não é possível excluí-lo!");
         }
-        System.out.println("Esse cliente possui locações ativas, não é possível excluí-lo!");
     }
 
     // LÓGICA DE EDITAR UM CLIENTE
