@@ -101,3 +101,63 @@
     - `12345678900`
     - `(55)988765432`
    
+# Passo a passo 
+- Menu principal: 
+    - 3 - Gerenciar categorias 
+    - Menu de caegoria 
+        - 1 - cadastro de categoria
+            - `1014` 
+            - `SUV`
+        - 4 - listar categorias 
+        - 0 - voltar 
+    - 2 - gerenciar veículos 
+        - 1 cadastro de veículos
+            - 1 - cadastro de veículos 
+                - `BRA-8542`
+                - `Creta`
+                - `Hyundai`
+                - `2020`
+                - `120`
+                - `5`
+                - `SUV`  
+            - 3 - Editar veículo 
+                 - `BRA-8542`
+                - `Creta`
+                - `Hyundai`
+                - `2022`
+                - `130`
+                - `5`
+                - `SUV`  
+            - 4 - listar veículos 
+            - 0 - voltar 
+    - 1 - Gerenciar clientes 
+        - 1 - Cadastro de clientes 
+            - `345.678.910-22`
+            - `Carlos Eduardo da Silva`
+            - `12345678900`
+            - `(55)988765432`
+         - 0 - voltar 
+    - 4 - Gerenciar locações 
+        - 1 - Locar veículo 
+            - `BRA-8541`
+            - `345.678.910-22`
+            - `16/04/2025`
+            - `17/04/2025`
+            - `1000`
+        - 2 - Devolver Veículo 
+            - `BRA-8541`
+        - 3 - Filtrar veiculos disponíveis 
+            - `3`
+            - `1`
+            -  `SUV`
+        - 4 - listar locações ativas 
+        - 5 - Listar veículos disponíveis 
+        - 0 - voltar 
+        
+
+
+
+
+
+    
+
