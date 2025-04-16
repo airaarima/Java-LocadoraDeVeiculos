@@ -1,3 +1,4 @@
+
 # Java-LocadoraDeVeiculos
 ## 📋 Funcionalidades do Módulo Veículos
 
@@ -75,3 +76,28 @@
 | **Carregar Clientes via CSV**    | Permitir a leitura dos clientes a partir de arquivo CSV                       | `lerClientesCsv()` em `ListaCliente` |
 | **Comparar Clientes por CPF**    | Define igualdade entre clientes pelo CPF                                      | `equals()` em `Cliente` |
 | **Formatação de Exibição**       | Exibe as informações formatadas de forma amigável                             | `toString()` em `Cliente` |
+
+
+# Inputs válidos 
+
+- Categoria: 
+    
+    - `2` 
+    - `1` 
+    - `SUV`
+    - `5`
+- Veículo: 
+
+    - `3`
+    - `1`
+    - `BRA-8542`
+    - `Creta`
+    - `SUV` 
+
+- Cliente:
+    - `1`
+    - `1`
+    - `Carlos Eduardo da Silva`
+    - `345.678.910-22`
+    - `(11)98876-5432`
+    - `45678912300`
