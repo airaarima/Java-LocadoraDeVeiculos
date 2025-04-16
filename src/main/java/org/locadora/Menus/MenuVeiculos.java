@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.locadora.Models.Categoria;
 import org.locadora.Models.ListaCategoria;
 import org.locadora.Models.ListaCliente;
+import org.locadora.Models.ListaLocacao;
 import org.locadora.Models.ListaVeiculo;
 import org.locadora.Models.No;
 import org.locadora.Models.Veiculo;
@@ -14,14 +15,15 @@ import org.locadora.Validadores.Validacoes;
 public class MenuVeiculos {
     private Scanner scanner;
     private ListaCategoria listaCategorias;
-    private ListaCliente listaClientes;
     private ListaVeiculo listaVeiculos;
-    private Validacoes validacoes;
+    private ListaLocacao listaLocacoes;
+    private ListaCliente listaClientes;
     
-    
-    public MenuVeiculos(ListaVeiculo veiculosLista, ListaCategoria listaCategorias) {
+    public MenuVeiculos(ListaVeiculo veiculosLista, ListaCategoria listaCategorias, ListaLocacao listaLocacoes) {
         this.listaVeiculos = veiculosLista;
         this.listaCategorias = listaCategorias;
+        this.listaLocacoes = listaLocacoes;
+
         this.scanner = new Scanner(System.in);
     }
 
@@ -60,7 +62,7 @@ public class MenuVeiculos {
         System.out.println("\n--- INSERIR VEÍCULO ---");
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
-        
+
         if(listaVeiculos.buscarPorPlaca(placa) != null){
             System.out.println("Essa placa já está vinculada a um veículo existente.");
             return;
@@ -95,23 +97,28 @@ public class MenuVeiculos {
         listaVeiculos.adicionar(novoVeiculo);
         }
 
-    private void excluirVeiculo(){
+    private void excluirVeiculo() {
         System.out.println("\n--- EXCLUIR VEÍCULO ---");
         System.out.print("Placa: ");
         String placa = scanner.nextLine();
 
-        if(listaVeiculos.buscarPorPlaca(placa) == null){
+        if (listaVeiculos.buscarPorPlaca(placa) == null) {
             System.out.println("Veículo não encontrado.");
             return;
         }
 
-        if(listaVeiculos.remover(placa)) {
+        // Verificação de locação ativa
+        if (listaLocacoes.existeLocacaoAtivaPorPlaca(placa)) {
+            System.out.println("Não é possível excluir: veículo está em uma locação ativa!");
+            return;
+        }
+
+        if (listaVeiculos.remover(placa)) {
             System.out.println("Veículo excluído com sucesso!");
         } else {
             System.out.println("Ocorreu um erro na exclusão do veículo.");
         }
-    }
-
+}
     private void editarVeiculo(){
         System.out.println("\n--- EDITAR VEÍCULO ---");
         System.out.print("Placa: ");
