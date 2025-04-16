@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator; // serve para ordenar os veiculos, mas eu não entendi muito bem como funciona, então fiz um método pra cada ordenação
 import java.util.Locale;
 
 public class ListaLocacao extends Lista<Locacao> {
@@ -40,23 +39,6 @@ public class ListaLocacao extends Lista<Locacao> {
         }
 
         return veiculosDisponiveis;
-    }
-
-    public ListaVeiculo filtrarVeiculosDisponiveis(ListaVeiculo todosVeiculos, int potenciaMinima, int lugares, String categoria) {
-        ListaVeiculo veiculosFiltrados = new ListaVeiculo();
-        No<Veiculo> atual = todosVeiculos.getInicio();
-        while (atual != null) {
-            Veiculo veiculo = atual.getElemento();
-            if (verificarVeiculoDisponivel(veiculo.getPlaca())
-                    && veiculo.getPotencia() >= potenciaMinima
-                    && veiculo.getNumeroLugares() >= lugares
-                    && veiculo.getCategoria() != null
-                    && veiculo.getCategoria().getNome().equals(categoria)) {
-                veiculosFiltrados.insereFim(veiculo);
-            }
-            atual = atual.getProximo();
-        }
-        return veiculosFiltrados;
     }
 
     public boolean clientePossuiLocacaoAtiva(String cpf) {
@@ -96,72 +78,38 @@ public class ListaLocacao extends Lista<Locacao> {
         }
     }
 
-    public void ordenarVeiculosPorPotencia(ListaVeiculo veiculos) {
-        boolean trocou;
-        do {
-            trocou = false;
-            No<Veiculo> atual = veiculos.getInicio();
-            while (atual != null && atual.getProximo() != null) {
-                if (atual.getElemento().getPotencia() > atual.getProximo().getElemento().getPotencia()) {
-                    Veiculo mudaPosicao = atual.getElemento();
-                    atual.setElemento(atual.getProximo().getElemento());
-                    atual.getProximo().setElemento(mudaPosicao);
-                    trocou = true;
-                }
-                atual = atual.getProximo();
+    public ListaVeiculo filtrarVeiculosPorPotencia(double potencia, ListaVeiculo veiculos) {
+        ListaVeiculo veiculosFiltrados = new ListaVeiculo();
+        No<Veiculo> atual = veiculos.getInicio();
+
+        while (atual != null) {
+            Veiculo veiculo = atual.getElemento();
+            // Verifica se está disponível se tem potência correta
+            if (verificarVeiculoDisponivel(veiculo.getPlaca()) &&
+                    veiculo.getPotencia() == potencia) {
+                veiculosFiltrados.insereFim(veiculo);
             }
-        } while (trocou);
+            atual = atual.getProximo();
+        }
+
+        return veiculosFiltrados;
     }
 
-    public void ordenarVeiculosPorAno(ListaVeiculo veiculos) {
-        boolean trocou;
-        do {
-            trocou = false;
-            No<Veiculo> atual = veiculos.getInicio();
-            while (atual != null && atual.getProximo() != null) {
-                if (atual.getElemento().getAno() > atual.getProximo().getElemento().getAno()) {
-                    Veiculo mudaLugar = atual.getElemento();
-                    atual.setElemento(atual.getProximo().getElemento());
-                    atual.getProximo().setElemento(mudaLugar);
-                    trocou = true;
-                }
-                atual = atual.getProximo();
-            }
-        } while (trocou);
-    }
+    public ListaVeiculo filtrarVeiculosPorLugares(int numLugares, ListaVeiculo listaVeiculo){
+        ListaVeiculo veiculosFiltrados = new ListaVeiculo();
+        No<Veiculo> atual = listaVeiculo.getInicio();
 
-    public void ordenarVeiculosPorModelo(ListaVeiculo veiculos) {
-        boolean trocou;
-        do {
-            trocou = false;
-            No<Veiculo> atual = veiculos.getInicio();
-            while (atual != null && atual.getProximo() != null) {
-                if (atual.getElemento().getModelo().compareTo(atual.getProximo().getElemento().getModelo()) > 0) {
-                    Veiculo mudaLugar = atual.getElemento();
-                    atual.setElemento(atual.getProximo().getElemento());
-                    atual.getProximo().setElemento(mudaLugar);
-                    trocou = true;
-                }
-                atual = atual.getProximo();
+        while (atual != null) {
+            Veiculo veiculo = atual.getElemento();
+            // Verifica se está disponível e se tem o número correto de lugares
+            if (verificarVeiculoDisponivel(veiculo.getPlaca()) &&
+                    veiculo.getNumeroLugares() == numLugares) {
+                veiculosFiltrados.insereFim(veiculo);
             }
-        } while (trocou);
-    }
+            atual = atual.getProximo();
+        }
 
-    public void ordenarVeiculosPorValor(ListaLocacao locacao) {
-        boolean trocou;
-        do {
-            trocou = false;
-            No<Locacao> atual = locacao.getInicio();
-            while (atual != null && atual.getProximo() != null) {
-                if (atual.getElemento().getValor() > atual.getProximo().getElemento().getValor()) {
-                    Locacao mudaLugar = atual.getElemento();
-                    atual.setElemento(atual.getProximo().getElemento());
-                    atual.getProximo().setElemento(mudaLugar);
-                    trocou = true;
-                }
-                atual = atual.getProximo();
-            }
-        } while (trocou);
+        return veiculosFiltrados;
     }
 
     public void lerLocacoesCsv(ListaCliente clientes, ListaVeiculo veiculos) {

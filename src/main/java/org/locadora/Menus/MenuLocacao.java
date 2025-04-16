@@ -27,7 +27,7 @@ public class MenuLocacao {
             System.out.println("[2] Devolver Veículo");
             System.out.println("[3] Filtrar Veículos Disponíveis");
             System.out.println("[4] Listar Locações Ativas");
-            System.out.println("[5] Listar Veículos Disponíveis");
+            System.out.println("[5] Listar Todos Os Veículos Disponíveis");
             System.out.println("[0] Voltar");
             System.out.print("Escolha uma opção: ");
 
@@ -129,7 +129,47 @@ public class MenuLocacao {
         System.out.println("Veículo devolvido com sucesso!");
     }
 
-    private void filtrarVeiculosDisponiveis(){}
+    private void filtrarVeiculosDisponiveis(){
+        System.out.println("\n--- FILTRAR VEÍCULOS DISPONÍVEIS ---");
+        System.out.println("Filtrar por:");
+        System.out.println("[1] Potência");
+        System.out.println("[2] Número de lugares");
+        System.out.println("[3] Categoria");
+        System.out.print("Escolha uma opção: ");
+        int filtro = scanner.nextInt();
+        scanner.nextLine();
+
+        if(!(filtro > 0 && filtro <= 3)) {
+            System.out.println("Tipo de filtro incorreto!");
+            return;
+        }
+
+        System.out.println("Ordenar por:");
+        System.out.println("[1] Crescente");
+        System.out.println("[2] Decrescente");
+        System.out.print("Escolha uma opção: ");
+        int ordem = scanner.nextInt();
+        scanner.nextLine();
+
+        if(!(ordem > 0 && ordem <= 2)) {
+            System.out.println("Escolha um tipo de ordenação correto!");
+            return;
+        }
+
+        String tipoOrdem = (ordem == 1) ? "crescente" : "decrescente";
+
+        switch(filtro) {
+            case 1:
+                filtroVeiculosPorPotencia(tipoOrdem);
+                break;
+            case 2:
+                filtroVeiculosPorLugares(tipoOrdem);
+                break;
+            case 3:
+                //filtroVeiculosPorCategoria();
+                break;
+        }
+    }
 
     public void listarLocacoesAtivas(){
         if(locacoesLista.isVazia()) System.out.println("Nenhuma locação foi realizada ainda.");
@@ -139,5 +179,39 @@ public class MenuLocacao {
     private void listarVeiculosDisponiveis(){
         System.out.println("\n--- VEÍCULOS DISPONÍVEIS PARA LOCAÇÃO ---");
         System.out.println(locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista));
+    }
+
+    private void filtroVeiculosPorPotencia(String tipoOrdenacao){
+        System.out.println("\n--- FILTRAR VEÍCULOS POR POTÊNCIA ---");
+
+        System.out.print("Informe a potência: ");
+        double potencia = scanner.nextDouble();
+        scanner.nextLine();
+
+        ListaVeiculo veiculosFiltrados = locacoesLista.filtrarVeiculosPorPotencia(potencia, veiculosLista);
+
+        if(veiculosFiltrados.isVazia()){
+            System.out.println("Nenhum veículo com essa potência foi encontrado!");
+        }else{
+            if(tipoOrdenacao == "crescente") System.out.println(veiculosFiltrados);
+            else if (tipoOrdenacao == "decrescente") System.out.println(veiculosFiltrados.toStringReverso());
+        }
+    }
+
+    private void filtroVeiculosPorLugares(String tipoOrdenacao){
+        System.out.println("\n--- FILTRAR VEÍCULOS POR NÚMERO DE LUGARES ---");
+
+        System.out.print("Informe o número de lugares desejado: ");
+        int lugaresDesejados = scanner.nextInt();
+        scanner.nextLine();
+
+        ListaVeiculo veiculosFiltrados = locacoesLista.filtrarVeiculosPorLugares(lugaresDesejados, veiculosLista);
+
+        if(veiculosFiltrados.isVazia()){
+            System.out.println("Nenhum veículo com essa quantidade de lugares foi encontrado!");
+        }else{
+            if(tipoOrdenacao == "crescente") System.out.println(veiculosFiltrados);
+            else if (tipoOrdenacao == "decrescente") System.out.println(veiculosFiltrados.toStringReverso());
+        }
     }
 }
