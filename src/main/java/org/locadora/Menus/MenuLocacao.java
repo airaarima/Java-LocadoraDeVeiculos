@@ -113,7 +113,7 @@ public class MenuLocacao {
         Locacao locacaoParaDevolver = null;
 
         while (atual != null) {
-            if (atual.getElemento().getVeiculo().equals(placa)) {
+            if (atual.getElemento().getVeiculo().getPlaca().equals(placa)) {
                 locacaoParaDevolver = atual.getElemento();
                 break;
             }
@@ -125,17 +125,19 @@ public class MenuLocacao {
             return;
         }
 
-//        locacoesLista.devolverVeiculo(locacaoParaDevolver);
+        locacoesLista.devolverLocacao(locacaoParaDevolver.getVeiculo().getPlaca());
         System.out.println("Veículo devolvido com sucesso!");
     }
 
     private void filtrarVeiculosDisponiveis(){}
 
     public void listarLocacoesAtivas(){
-        System.out.println(locacoesLista);
+        if(locacoesLista.isVazia()) System.out.println("Nenhuma locação foi realizada ainda.");
+        else System.out.println(locacoesLista);
     }
 
     private void listarVeiculosDisponiveis(){
+        System.out.println("\n--- VEÍCULOS DISPONÍVEIS PARA LOCAÇÃO ---");
         System.out.println(locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista));
     }
 }
