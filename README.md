@@ -81,23 +81,23 @@
 # Inputs válidos 
 
 - Categoria: 
-    
-    - `2` 
-    - `1` 
+     
+    - `1014` 
     - `SUV`
-    - `5`
+
 - Veículo: 
 
-    - `3`
-    - `1`
     - `BRA-8542`
     - `Creta`
+    - `Hyundai`
+    - `2020`
+    - `120`
+    - `5`
     - `SUV` 
 
 - Cliente:
-    - `1`
-    - `1`
-    - `Carlos Eduardo da Silva`
     - `345.678.910-22`
-    - `(11)98876-5432`
-    - `45678912300`
+    - `Carlos Eduardo da Silva`
+    - `12345678900`
+    - `(55)988765432`
+   
