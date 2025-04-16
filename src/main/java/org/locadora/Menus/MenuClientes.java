@@ -120,6 +120,10 @@ public class MenuClientes {
                 System.out.println("CNH INVÁLIDO! Digite um CNH com até 11 números");
                 continue;
             }
+            if (valid.existeCnh(cnh)) {
+                System.out.println("CNH INVÁLIDO! Essa CNH já existe no sistema!");
+                continue;
+            }
 
             cnhValida = true;
         } while (!cnhValida);
@@ -251,7 +255,12 @@ public class MenuClientes {
             }
 
             if (!valid.validaCnh(novoCnh)) {
-                System.out.println("CNH INVÁLIDO! A identificação do CNH deve ter 11 dígitos exatos!");
+                System.out.println("CNH INVÁLIDO! Essa CNH ja está cadastrada no sistema!");
+                continue;
+            }
+
+            if (valid.existeCnh(novoCnh)) {
+                System.out.println("CNH INVÁLIDO! O CNH digitado já existe no sistema!");
                 continue;
             }
 
