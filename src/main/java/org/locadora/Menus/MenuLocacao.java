@@ -1,10 +1,16 @@
 package org.locadora.Menus;
 
-import org.locadora.Models.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import org.locadora.Models.Cliente;
+import org.locadora.Models.ListaCliente;
+import org.locadora.Models.ListaLocacao;
+import org.locadora.Models.ListaVeiculo;
+import org.locadora.Models.Locacao;
+import org.locadora.Models.No;
+import org.locadora.Models.Veiculo;
 
 public class MenuLocacao {
     private ListaLocacao locacoesLista;
@@ -166,7 +172,7 @@ public class MenuLocacao {
                 filtroVeiculosPorLugares(tipoOrdem);
                 break;
             case 3:
-                //filtroVeiculosPorCategoria();
+                filtroVeiculosPorCategoria(tipoOrdem);
                 break;
         }
     }
@@ -179,6 +185,20 @@ public class MenuLocacao {
     private void listarVeiculosDisponiveis(){
         System.out.println("\n--- VEÍCULOS DISPONÍVEIS PARA LOCAÇÃO ---");
         System.out.println(locacoesLista.listarTodosVeiculosDisponiveis(veiculosLista));
+    }
+
+    private void filtroVeiculosPorCategoria(String tipoOrdenacao){
+        System.out.println("\n--- FILTRAR VEÍCULOS POR CATEGORIA ---");
+        System.out.print("Informe a categoria: ");
+        String categoria = scanner.nextLine();
+        
+        ListaVeiculo veiculosFiltrados = locacoesLista.filtrarVeiculosPorCategoria(categoria, veiculosLista);
+
+        if(veiculosFiltrados.isVazia()){
+            System.out.println("Nenhum veículo dessa categoria foi encontrado!");
+        }else{
+            if(tipoOrdenacao == "crescente") System.out.println(veiculosFiltrados);
+            else if (tipoOrdenacao == "decrescente") System.out.println(veiculosFiltrados.toStringReverso());        }
     }
 
     private void filtroVeiculosPorPotencia(String tipoOrdenacao){

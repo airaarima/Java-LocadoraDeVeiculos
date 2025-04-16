@@ -111,6 +111,22 @@ public class ListaLocacao extends Lista<Locacao> {
 
         return veiculosFiltrados;
     }
+    public ListaVeiculo filtrarVeiculosPorCategoria(String categoria, ListaVeiculo listaVeiculo){
+        ListaVeiculo veiculosFiltrados = new ListaVeiculo();
+        No<Veiculo> atual = listaVeiculo.getInicio();
+
+        while (atual != null) {
+            Veiculo veiculo = atual.getElemento();
+            // Verifica se está disponível e se tem a categoria correta
+            if (verificarVeiculoDisponivel(veiculo.getPlaca()) &&
+                    veiculo.getCategoria().getNome().equalsIgnoreCase(categoria)) {
+                veiculosFiltrados.insereFim(veiculo);
+            }
+            atual = atual.getProximo();
+        }
+
+        return veiculosFiltrados;
+    }
 
     public void ordenarVeiculosPorCategoria(ListaVeiculo veiculos) {
         boolean trocou;
