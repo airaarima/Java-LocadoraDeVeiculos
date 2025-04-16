@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator; // serve para ordenar os veiculos, mas eu não entendi muito bem como funciona, então fiz um método pra cada ordenação
-import java.util.Locale;
+import java.util.Locale; // serve para ordenar os veiculos, mas eu não entendi muito bem como funciona, então fiz um método pra cada ordenação
+
 
 public class ListaLocacao extends Lista<Locacao> {
 
@@ -94,6 +94,23 @@ public class ListaLocacao extends Lista<Locacao> {
         } else {
             System.out.println("Esse veículo já está locado.");
         }
+    }
+
+    public void ordenarVeiculosPorCategoria(ListaVeiculo veiculos) {
+        boolean trocou;
+        do {
+            trocou = false;
+            No<Veiculo> atual = veiculos.getInicio();
+            while (atual != null && atual.getProximo() != null) {
+                if (atual.getElemento().getPotencia() > atual.getProximo().getElemento().getCategoria().getIdentificador()) {
+                    Veiculo mudaPosicao = atual.getElemento();
+                    atual.setElemento(atual.getProximo().getElemento());
+                    atual.getProximo().setElemento(mudaPosicao);
+                    trocou = true;
+                }
+                atual = atual.getProximo();
+            }
+        } while (trocou);
     }
 
     public void ordenarVeiculosPorPotencia(ListaVeiculo veiculos) {
