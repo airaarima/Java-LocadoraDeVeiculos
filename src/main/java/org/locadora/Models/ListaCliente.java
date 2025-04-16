@@ -32,14 +32,26 @@ public class ListaCliente extends Lista<Cliente> {
         super.insereFim(cliente);
     }
 
-    public boolean editarClientes(String cpf, Cliente clienteAtualizado) {
-        No<Cliente> editarElemento = buscarPorCpf(cpf);
+    public boolean editarClientes(String cpfAntigo, Cliente clienteAtualizado) {
+        No<Cliente> editarElemento = buscarPorCpf(cpfAntigo);
+        String cpfNovo = clienteAtualizado.getCpf();
+
         if (editarElemento == null) {
             return false;
         }
-        editarElemento.setElemento(clienteAtualizado);
+
+        if (!cpfNovo.equals(cpfAntigo) && buscarPorCpf(cpfNovo) != null) {
+                return false;
+            }
+
+        Cliente clienteAntigo = editarElemento.getElemento();
+        clienteAntigo.setCpf(cpfNovo);
+        clienteAntigo.setCnh(clienteAtualizado.getCnh());
+        clienteAntigo.setNome(clienteAtualizado.getNome());
+        clienteAntigo.setTelefone(clienteAtualizado.getTelefone());
         return true;
     }
+
 
     public boolean removerCliente(String cpf, ListaLocacao listaLocacoes) {
         No<Cliente> excluirElemento = buscarPorCpf(cpf);
